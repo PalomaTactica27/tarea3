@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Las Revoluciones Industriales y sus Legados</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream:    #f5f0e8;
+      --parchment:#ede6d6;
+      --tan:      #d4c4a0;
+      --brown1:   #b89a6a;
+      --brown2:   #8b6f47;
+      --brown3:   #6b4f2e;
+      --brown4:   #4a3520;
+      --dark:     #2c2015;
+      --rust:     #a0522d;
+      --rust-light:#c8763d;
+      --gold:     #c8a84b;
+      --gold-light:#e0c06a;
+      --smoke:    #9ca8a0;
+      --text:     #3a2c1a;
+      --text-light:#6b5a40;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: var(--cream);
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--parchment); }
+    ::-webkit-scrollbar-thumb { background: var(--brown2); border-radius: 4px; }
+
+    /* ── PROGRESS BAR ── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 4px;
+      background: linear-gradient(90deg, var(--rust), var(--gold));
+      width: 0%; z-index: 9999; transition: width .1s;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 4px; left: 0; right: 0; z-index: 1000;
+      background: rgba(44,32,21,.93);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .7rem 2rem;
+      border-bottom: 1px solid var(--brown2);
+    }
+    .nav-logo {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-light);
+      font-size: 1rem;
+      letter-spacing: .12em;
+    }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--tan);
+      text-decoration: none;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: color .3s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+
+    /* ── HAMBURGER ── */
+    .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--tan); transition: .3s; }
+
+    /* ── COVER ── */
+    #portada {
+      min-height: 100vh;
+      background: linear-gradient(160deg, var(--dark) 0%, var(--brown4) 40%, var(--brown3) 80%, var(--brown2) 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .portada-gear {
+      position: absolute; opacity: .06;
+      animation: spin 60s linear infinite;
+    }
+    .portada-gear.big  { width: 600px; bottom: -150px; right: -150px; }
+    .portada-gear.mid  { width: 320px; top: -80px;  left: -80px; animation-direction: reverse; }
+    .portada-gear.sml  { width: 180px; top: 30%;   right: 5%; animation-duration: 30s; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .portada-badge {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif;
+      font-size: .7rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      padding: .4rem 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+    .portada-materia {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      color: var(--tan);
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .portada-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      color: var(--cream);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: .5rem;
+    }
+    .portada-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 3vw, 1.8rem);
+      color: var(--gold-light);
+      font-style: italic;
+      margin-bottom: 3rem;
+    }
+    .portada-divider {
+      width: 140px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 3rem;
+    }
+    .portada-info { color: var(--tan); font-size: .92rem; line-height: 2.2; }
+    .portada-info span { color: var(--cream); font-weight: 700; }
+    .portada-scroll {
+      margin-top: 3rem;
+      color: var(--gold);
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+
+    /* ── SECTION BASE ── */
+    section { padding: 5rem 0; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: .7rem;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--rust-light);
+      margin-bottom: .8rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: var(--brown4);
+      margin-bottom: .6rem;
+      line-height: 1.2;
+    }
+    .section-rule {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--rust), var(--gold));
+      margin-bottom: 2rem;
+    }
+    p { margin-bottom: 1.2rem; color: var(--text); }
+
+    /* ── INDEX ── */
+    #indice { background: var(--parchment); }
+    .index-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .index-card {
+      background: var(--cream);
+      border: 1px solid var(--tan);
+      border-left: 4px solid var(--rust);
+      padding: 1.1rem 1.3rem;
+      border-radius: 2px;
+      text-decoration: none;
+      color: var(--brown3);
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: .87rem;
+      letter-spacing: .04em;
+      display: flex; align-items: center; gap: .7rem;
+      transition: all .25s;
+    }
+    .index-card:hover {
+      background: var(--brown4);
+      color: var(--cream);
+      border-left-color: var(--gold);
+      transform: translateX(4px);
+    }
+    .index-card .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ── INTRO ── */
+    #introduccion { background: var(--cream); }
+    .intro-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .intro-img-wrap {
+      position: relative;
+    }
+    .intro-img-wrap img {
+      width: 100%; border-radius: 2px;
+      filter: sepia(.25) contrast(1.1);
+      box-shadow: 8px 8px 0 var(--tan);
+    }
+    .intro-img-caption {
+      position: absolute; bottom: -1.2rem; left: 1rem;
+      background: var(--brown4);
+      color: var(--cream);
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .3rem .8rem;
+    }
+
+    /* ── TIMELINE ── */
+    #desarrollo { background: var(--parchment); }
+    .timeline { position: relative; margin-top: 3rem; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 50%; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--rust), var(--gold), var(--rust));
+      transform: translateX(-50%);
+    }
+    .tl-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 5rem;
+      position: relative;
+    }
+    .tl-item:nth-child(odd) { flex-direction: row; }
+    .tl-item:nth-child(even) { flex-direction: row-reverse; }
+    .tl-content {
+      width: calc(50% - 3rem);
+      background: var(--cream);
+      border: 1px solid var(--tan);
+      padding: 1.8rem;
+      border-radius: 2px;
+      box-shadow: 4px 4px 0 var(--tan);
+      transition: box-shadow .3s, transform .3s;
+    }
+    .tl-content:hover {
+      box-shadow: 8px 8px 0 var(--brown2);
+      transform: translate(-2px,-2px);
+    }
+    .tl-item:nth-child(odd) .tl-content { margin-right: auto; }
+    .tl-item:nth-child(even) .tl-content { margin-left: auto; }
+    .tl-dot {
+      position: absolute; left: 50%;
+      transform: translateX(-50%);
+      width: 48px; height: 48px;
+      background: var(--brown4);
+      border: 3px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cinzel', serif;
+      color: var(--gold-light);
+      font-size: .75rem;
+      font-weight: 700;
+      z-index: 2;
+      flex-shrink: 0;
+    }
+    .tl-era {
+      font-family: 'Cinzel', serif;
+      font-size: .65rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--rust-light);
+      margin-bottom: .5rem;
+    }
+    .tl-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--brown4);
+      margin-bottom: .3rem;
+    }
+    .tl-content h4 {
+      font-size: .8rem;
+      color: var(--gold);
+      margin-bottom: .8rem;
+      letter-spacing: .1em;
+    }
+    .tl-content img {
+      width: 100%; margin: 1rem 0;
+      border-radius: 2px;
+      filter: sepia(.2) contrast(1.1);
+    }
+    .tl-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .8rem; }
+    .tag {
+      background: var(--parchment);
+      border: 1px solid var(--tan);
+      color: var(--brown3);
+      font-size: .7rem;
+      padding: .2rem .6rem;
+      border-radius: 20px;
+    }
+
+    /* ── MAQUINISMO ── */
+    #maquinismo { background: var(--cream); }
+    .maq-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .maq-card {
+      background: var(--parchment);
+      border: 1px solid var(--tan);
+      padding: 1.5rem;
+      border-radius: 2px;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .maq-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgba(74,53,32,.15);
+    }
+    .maq-card img {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover;
+      margin-bottom: 1rem; border-radius: 1px;
+      filter: sepia(.3);
+    }
+    .maq-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--brown4);
+      margin-bottom: .4rem;
+    }
+    .maq-card p { font-size: .85rem; }
+
+    /* ── DIGITAL ── */
+    #era-digital { background: var(--parchment); }
+    .digital-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .digital-img-stack { position: relative; }
+    .digital-img-stack img {
+      width: 100%; border-radius: 2px;
+      filter: sepia(.15) contrast(1.05);
+    }
+    .digital-img-stack .img-overlay {
+      position: absolute;
+      bottom: -2rem; right: -2rem;
+      width: 55%;
+      border: 4px solid var(--cream);
+      filter: sepia(.2);
+    }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .stat-box {
+      background: var(--brown4);
+      color: var(--cream);
+      padding: 1.2rem;
+      text-align: center;
+      border-radius: 2px;
+    }
+    .stat-box .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--gold-light);
+      display: block;
+    }
+    .stat-box .stat-lbl { font-size: .72rem; color: var(--tan); letter-spacing: .08em; }
+
+    /* ── ACCORDION ── */
+    #segunda-tercera { background: var(--cream); }
+    .accordion { margin-top: 2rem; }
+    .acc-item {
+      border: 1px solid var(--tan);
+      margin-bottom: .6rem;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .acc-header {
+      width: 100%;
+      background: var(--parchment);
+      border: none;
+      padding: 1.1rem 1.4rem;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--brown4);
+      transition: background .25s;
+    }
+    .acc-header:hover { background: var(--tan); }
+    .acc-header.open { background: var(--brown4); color: var(--cream); }
+    .acc-header .arrow {
+      font-size: 1.2rem;
+      transition: transform .35s;
+    }
+    .acc-header.open .arrow { transform: rotate(180deg); }
+    .acc-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .45s ease;
+      background: var(--cream);
+      padding: 0 1.4rem;
+    }
+    .acc-body.open {
+      max-height: 1000px;
+      padding: 1.2rem 1.4rem;
+    }
+    .acc-body img {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      margin: 1rem 0;
+      filter: sepia(.2);
+      border-radius: 2px;
+    }
+
+    /* ── GALLERY ── */
+    #galeria { background: var(--parchment); }
+    .gallery-title-wrap { margin-bottom: 2rem; }
+    .gallery-filter {
+      display: flex; flex-wrap: wrap; gap: .5rem;
+      margin-bottom: 1.5rem;
+    }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--brown2);
+      color: var(--brown3);
+      padding: .35rem .9rem;
+      cursor: pointer;
+      font-size: .78rem;
+      letter-spacing: .06em;
+      border-radius: 20px;
+      transition: all .25s;
+    }
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--brown4);
+      color: var(--cream);
+      border-color: var(--brown4);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: transform .3s;
+    }
+    .gallery-item:hover { transform: scale(1.02); }
+    .gallery-item img {
+      width: 100%; aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      filter: sepia(.25) contrast(1.1);
+      transition: filter .3s;
+    }
+    .gallery-item:hover img { filter: sepia(.1) contrast(1.15); }
+    .gallery-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(44,32,21,.85));
+      color: var(--cream);
+      padding: 1.5rem .8rem .6rem;
+      font-size: .72rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transform: translateY(100%);
+      transition: transform .3s;
+    }
+    .gallery-item:hover .gallery-caption { transform: translateY(0); }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(20,12,5,.93);
+      z-index: 9000;
+      align-items: center;
+      justify-content: center;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-width: 85vw; max-height: 80vh; border-radius: 2px; }
+    #lightbox-close {
+      position: absolute; top: 1.5rem; right: 2rem;
+      color: var(--cream); font-size: 2rem; cursor: pointer;
+    }
+    #lightbox-caption {
+      position: absolute; bottom: 2rem;
+      color: var(--tan); font-size: .85rem; letter-spacing: .12em;
+    }
+
+    /* ── QUIZ ── */
+    #quiz { background: var(--cream); }
+    .quiz-box {
+      background: var(--parchment);
+      border: 1px solid var(--tan);
+      padding: 2rem;
+      border-radius: 2px;
+      max-width: 700px;
+      margin: 2rem auto 0;
+    }
+    .quiz-progress {
+      font-family: 'Cinzel', serif;
+      font-size: .75rem;
+      color: var(--rust-light);
+      letter-spacing: .15em;
+      margin-bottom: 1rem;
+    }
+    .quiz-question {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--brown4);
+      margin-bottom: 1.4rem;
+    }
+    .quiz-options { display: flex; flex-direction: column; gap: .6rem; }
+    .quiz-opt {
+      background: var(--cream);
+      border: 1px solid var(--tan);
+      padding: .85rem 1.1rem;
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: .88rem;
+      text-align: left;
+      color: var(--text);
+      transition: all .2s;
+    }
+    .quiz-opt:hover { background: var(--tan); }
+    .quiz-opt.correct { background: #c8dfc8; border-color: #6a9f6a; color: #2a5a2a; }
+    .quiz-opt.wrong   { background: #dfc8c8; border-color: #9f6a6a; color: #5a2a2a; }
+    .quiz-feedback {
+      margin-top: 1rem;
+      font-size: .85rem;
+      color: var(--brown3);
+      min-height: 1.2rem;
+    }
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+    .btn {
+      background: var(--brown4);
+      color: var(--cream);
+      border: none;
+      padding: .6rem 1.5rem;
+      cursor: pointer;
+      font-family: 'Cinzel', serif;
+      font-size: .78rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background .25s;
+    }
+    .btn:hover { background: var(--rust); }
+    .btn:disabled { opacity: .4; cursor: not-allowed; }
+    .quiz-score {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--brown4);
+    }
+
+    /* ── CONCLUSION ── */
+    #conclusion { background: var(--parchment); }
+    .conclu-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .conclu-img img {
+      width: 100%; border-radius: 2px;
+      filter: sepia(.25);
+      box-shadow: -8px 8px 0 var(--tan);
+    }
+    .highlight-box {
+      background: var(--brown4);
+      color: var(--cream);
+      padding: 1.5rem;
+      border-left: 4px solid var(--gold);
+      margin: 1.5rem 0;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    /* ── REFERENCES ── */
+    #referencias { background: var(--cream); }
+    .ref-list {
+      list-style: none;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: .9rem;
+    }
+    .ref-list li {
+      padding: 1rem 1.2rem 1rem 3rem;
+      background: var(--parchment);
+      border: 1px solid var(--tan);
+      border-radius: 2px;
+      font-size: .85rem;
+      color: var(--text-light);
+      position: relative;
+    }
+    .ref-list li::before {
+      content: attr(data-n);
+      position: absolute; left: 1rem;
+      font-family: 'Cinzel', serif;
+      color: var(--gold);
+      font-size: .8rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      color: var(--tan);
+      text-align: center;
+      padding: 2.5rem 2rem;
+      font-size: .8rem;
+      letter-spacing: .1em;
+    }
+    footer .f-logo {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-light);
+      font-size: 1rem;
+      margin-bottom: .6rem;
+    }
+
+    /* ── BACK-TO-TOP ── */
+    #btt {
+      position: fixed; bottom: 2rem; right: 2rem;
+      background: var(--brown4);
+      color: var(--gold-light);
+      border: 1px solid var(--gold);
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .3s, transform .3s;
+      z-index: 800;
+      text-decoration: none;
+    }
+    #btt.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: var(--dark);
+        flex-direction: column;
+        padding: 1rem 2rem;
+        gap: .8rem;
+      }
+      .nav-links.open { display: flex; }
+      .intro-layout,
+      .conclu-layout,
+      .digital-layout { grid-template-columns: 1fr; }
+      .timeline::before { left: 20px; }
+      .tl-item,
+      .tl-item:nth-child(even) { flex-direction: column; padding-left: 3rem; }
+      .tl-content,
+      .tl-item:nth-child(even) .tl-content { width: 100%; margin: 0; }
+      .tl-dot { left: 20px; }
+      .maq-grid { grid-template-columns: 1fr; }
+      .digital-img-stack .img-overlay { display: none; }
+    }
+
+    /* ── FADE-IN ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- Progress -->
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Rev. Industriales</span>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#portada">Portada</a></li>
+    <li><a href="#indice">Índice</a></li>
+    <li><a href="#introduccion">Introducción</a></li>
+    <li><a href="#desarrollo">Desarrollo</a></li>
+    <li><a href="#maquinismo">Maquinismo</a></li>
+    <li><a href="#segunda-tercera">2ª y 3ª Rev.</a></li>
+    <li><a href="#era-digital">Era Digital</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+    <li><a href="#conclusion">Conclusión</a></li>
+    <li><a href="#referencias">Referencias</a></li>
+  </ul>
+</nav>
+
+<!-- PORTADA -->
+<section id="portada">
+  <!-- Gear SVGs -->
+  <svg class="portada-gear big" viewBox="0 0 100 100" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M43.5,0 L56.5,0 L60,15 C63.5,16.2 66.8,17.9 69.8,20 L84,14.5 L93,23.5 L87.5,37.7 C89.6,40.7 91.3,44 92.5,47.5 L107.5,51 L107.5,64 L92.5,67.5 C91.3,71 89.6,74.3 87.5,77.3 L93,91.5 L84,100.5 L69.8,95 C66.8,97.1 63.5,98.8 60,100 L56.5,115 L43.5,115 L40,100 C36.5,98.8 33.2,97.1 30.2,95 L16,100.5 L7,91.5 L12.5,77.3 C10.4,74.3 8.7,71 7.5,67.5 L-7.5,64 L-7.5,51 L7.5,47.5 C8.7,44 10.4,40.7 12.5,37.7 L7,23.5 L16,14.5 L30.2,20 C33.2,17.9 36.5,16.2 40,15 Z M50,65 A15,15 0 1,0 50,35 A15,15 0 0,0 50,65 Z"/>
+  </svg>
+  <svg class="portada-gear mid" viewBox="0 0 100 100" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M43.5,0 L56.5,0 L60,15 C63.5,16.2 66.8,17.9 69.8,20 L84,14.5 L93,23.5 L87.5,37.7 C89.6,40.7 91.3,44 92.5,47.5 L107.5,51 L107.5,64 L92.5,67.5 C91.3,71 89.6,74.3 87.5,77.3 L93,91.5 L84,100.5 L69.8,95 C66.8,97.1 63.5,98.8 60,100 L56.5,115 L43.5,115 L40,100 C36.5,98.8 33.2,97.1 30.2,95 L16,100.5 L7,91.5 L12.5,77.3 C10.4,74.3 8.7,71 7.5,67.5 L-7.5,64 L-7.5,51 L7.5,47.5 C8.7,44 10.4,40.7 12.5,37.7 L7,23.5 L16,14.5 L30.2,20 C33.2,17.9 36.5,16.2 40,15 Z M50,65 A15,15 0 1,0 50,35 A15,15 0 0,0 50,65 Z"/>
+  </svg>
+  <svg class="portada-gear sml" viewBox="0 0 100 100" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M43.5,0 L56.5,0 L60,15 C63.5,16.2 66.8,17.9 69.8,20 L84,14.5 L93,23.5 L87.5,37.7 C89.6,40.7 91.3,44 92.5,47.5 L107.5,51 L107.5,64 L92.5,67.5 C91.3,71 89.6,74.3 87.5,77.3 L93,91.5 L84,100.5 L69.8,95 C66.8,97.1 63.5,98.8 60,100 L56.5,115 L43.5,115 L40,100 C36.5,98.8 33.2,97.1 30.2,95 L16,100.5 L7,91.5 L12.5,77.3 C10.4,74.3 8.7,71 7.5,67.5 L-7.5,64 L-7.5,51 L7.5,47.5 C8.7,44 10.4,40.7 12.5,37.7 L7,23.5 L16,14.5 L30.2,20 C33.2,17.9 36.5,16.2 40,15 Z M50,65 A15,15 0 1,0 50,35 A15,15 0 0,0 50,65 Z"/>
+  </svg>
+
+  <div class="portada-badge">Investigación Académica · 2026</div>
+  <div class="portada-materia">Pensamiento Histórico de la Ciencia y la Tecnología</div>
+  <h1 class="portada-title">Las Revoluciones<br>Industriales</h1>
+  <p class="portada-subtitle">y sus Legados</p>
+  <div class="portada-divider"></div>
+  <div class="portada-info">
+    <div><span>Docente:</span> Urbina Hernández Carlos</div>
+    <div><span>Alumno:</span> Brizuela Araujo Héctor Alejandro</div>
+    <div><span>Grupo:</span> 6CPGM</div>
+    <div><span>Fecha:</span> 08/05/2026</div>
+  </div>
+  <div class="portada-scroll">▼ Desplázate para explorar</div>
+</section>
+
+<!-- ÍNDICE -->
+<section id="indice">
+  <div class="container">
+    <p class="section-label">Navegación</p>
+    <h2 class="section-title">Índice de Contenidos</h2>
+    <div class="section-rule"></div>
+    <p>Selecciona cualquier tema para ir directamente a esa sección.</p>
+    <div class="index-grid">
+      <a href="#introduccion" class="index-card"><span class="num">01</span>Introducción</a>
+      <a href="#desarrollo"   class="index-card"><span class="num">02</span>Las Cuatro Fases</a>
+      <a href="#maquinismo"   class="index-card"><span class="num">03</span>Maquinismo y Capitalismo</a>
+      <a href="#segunda-tercera" class="index-card"><span class="num">04</span>2ª y 3ª Revolución Industrial</a>
+      <a href="#era-digital"  class="index-card"><span class="num">05</span>Era Digital (4ª Rev.)</a>
+      <a href="#galeria"      class="index-card"><span class="num">06</span>Galería de Imágenes</a>
+      <a href="#quiz"         class="index-card"><span class="num">07</span>Autoevaluación Interactiva</a>
+      <a href="#conclusion"   class="index-card"><span class="num">08</span>Conclusión</a>
+      <a href="#referencias"  class="index-card"><span class="num">09</span>Referencias Bibliográficas</a>
+    </div>
+  </div>
+</section>
+
+<!-- INTRODUCCIÓN -->
+<section id="introduccion">
+  <div class="container">
+    <p class="section-label">Punto de partida</p>
+    <h2 class="section-title">Introducción</h2>
+    <div class="section-rule"></div>
+    <div class="intro-layout reveal">
+      <div class="intro-img-wrap">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Philipp_Jakob_Loutherbourg_d._J._002.jpg/800px-Philipp_Jakob_Loutherbourg_d._J._002.jpg" alt="Revolución Industrial, noche en Coalbrookdale"/>
+        <span class="intro-img-caption">Coalbrookdale, cuna de la Revolución Industrial · 1801</span>
+      </div>
+      <div>
+        <p>La historia de la humanidad puede dividirse en grandes eras transformadoras. Pocas han sido tan profundas y aceleradas como las <strong>Revoluciones Industriales</strong>, conjuntos de cambios tecnológicos, económicos y sociales que, desde finales del siglo XVIII hasta nuestros días, han reconfigurado por completo la forma en que producimos, trabajamos, nos comunicamos y concebimos el mundo.</p>
+        <p>Cada revolución industrial ha tenido como motor una tecnología disruptiva: el vapor y el carbón en la primera; la electricidad, el petróleo y el acero en la segunda; la electrónica e internet en la tercera; y la inteligencia artificial con el internet de las cosas en la cuarta. El resultado acumulado es un planeta urbanizado, hiperconectado y en constante cambio.</p>
+        <p>Esta investigación examina las cuatro fases principales, con especial énfasis en tres ejes temáticos: el <strong>maquinismo y el capitalismo</strong> como sistema económico resultante, el tránsito hacia la <strong>Segunda y Tercera Revolución Industrial</strong>, y la consolidación de la <strong>Era Digital</strong> que habitamos actualmente.</p>
+        <p>Comprender estos procesos históricos es fundamental para interpretar el presente y anticipar los desafíos que la tecnología plantea a las sociedades contemporáneas.</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-top:3rem;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/SteamEngine_Boulton%26Watt_1784.jpg/640px-SteamEngine_Boulton%26Watt_1784.jpg" alt="Máquina de vapor de Watt" style="width:100%;border-radius:2px;filter:sepia(.3);aspect-ratio:4/3;object-fit:cover;" class="reveal"/>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Powerloom_weaving_in_1835.jpg/640px-Powerloom_weaving_in_1835.jpg" alt="Fábrica textil Manchester 1820" style="width:100%;border-radius:2px;filter:sepia(.3);aspect-ratio:4/3;object-fit:cover;" class="reveal"/>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Ford_assembly_line_-_1913.jpg/640px-Ford_assembly_line_-_1913.jpg" alt="Línea de ensamble Ford 1913" style="width:100%;border-radius:2px;filter:sepia(.3);aspect-ratio:4/3;object-fit:cover;" class="reveal"/>
+    </div>
+  </div>
+</section>
+
+<!-- DESARROLLO: CUATRO FASES -->
+<section id="desarrollo">
+  <div class="container">
+    <p class="section-label">Desarrollo histórico</p>
+    <h2 class="section-title">Las Cuatro Fases Industriales</h2>
+    <div class="section-rule"></div>
+    <p>A lo largo del tiempo se han identificado cuatro grandes fases, cada una impulsada por una tecnología disruptiva que transformó radicalmente la producción, la economía y la sociedad.</p>
+
+    <div class="timeline">
+
+      <!-- 1ª -->
+      <div class="tl-item reveal">
+        <div class="tl-content">
+          <div class="tl-era">1760 – 1840</div>
+          <h3>Primera Revolución Industrial</h3>
+          <h4>El Vapor, el Carbón y el Textil</h4>
+          <p>Nacida en Gran Bretaña, esta fase marcó la transición de la producción manual en talleres artesanales a la mecanización en fábricas. El motor fue <strong>el vapor</strong> alimentado por carbón. La industria textil —hilados, telares mecánicos, algodón— fue el sector emblemático de esta transformación.</p>
+          <p>La máquina de vapor de James Watt (1769) revolucionó el transporte y la manufactura. Surgieron los primeros ferrocarriles, los canales industriales y las grandes ciudades fabriles como Manchester y Birmingham. Miles de campesinos migraron a las ciudades en busca de empleo, creando la clase obrera moderna.</p>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Powerloom_weaving_in_1835.jpg/640px-Powerloom_weaving_in_1835.jpg" alt="Vapor y maquinaria primera revolución"/>
+          <div class="tl-tags">
+            <span class="tag">Vapor</span>
+            <span class="tag">Carbón</span>
+            <span class="tag">Textil</span>
+            <span class="tag">Ferrocarril</span>
+            <span class="tag">Gran Bretaña</span>
+          </div>
+        </div>
+        <div class="tl-dot">I</div>
+      </div>
+
+      <!-- 2ª -->
+      <div class="tl-item reveal">
+        <div class="tl-content">
+          <div class="tl-era">1870 – 1914</div>
+          <h3>Segunda Revolución Industrial</h3>
+          <h4>Electricidad, Petróleo y Producción en Masa</h4>
+          <p>Se centró en la <strong>electricidad</strong>, el petróleo y el acero. Introdujo la producción en masa (fordismo), el automóvil, el avión y el teléfono. Thomas Edison, Nikola Tesla y Henry Ford fueron figuras paradigmáticas.</p>
+          <p>El fordismo revolucionó la organización del trabajo con la cadena de ensamblaje: piezas estandarizadas, operaciones repetitivas y enorme aumento de la productividad. La industria química, farmacéutica y siderúrgica alcanzaron escalas nunca vistas.</p>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Ford_assembly_line_-_1913.jpg/640px-Ford_assembly_line_-_1913.jpg" alt="Línea Ford 1913"/>
+          <div class="tl-tags">
+            <span class="tag">Electricidad</span>
+            <span class="tag">Petróleo</span>
+            <span class="tag">Acero</span>
+            <span class="tag">Fordismo</span>
+            <span class="tag">Automóvil</span>
+          </div>
+        </div>
+        <div class="tl-dot">II</div>
+      </div>
+
+      <!-- 3ª -->
+      <div class="tl-item reveal">
+        <div class="tl-content">
+          <div class="tl-era">1960 – 2000</div>
+          <h3>Tercera Revolución Industrial</h3>
+          <h4>Electrónica, Informática e Internet</h4>
+          <p>Conocida como la <strong>Revolución Digital</strong>, fue impulsada por la electrónica, la informática y las energías renovables. Vimos el surgimiento de Internet (ARPANET → World Wide Web), la automatización programable (CNC, robots industriales) y la computadora personal.</p>
+          <p>La producción pasó a ser controlada por microprocesadores. Las telecomunicaciones globales se dispararon. El trabajo del conocimiento (software, diseño, servicios) superó al trabajo físico como eje de la economía en los países desarrollados.</p>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IBM_PC_5150.jpg/640px-IBM_PC_5150.jpg" alt="IBM PC primera computadora personal"/>
+          <div class="tl-tags">
+            <span class="tag">Electrónica</span>
+            <span class="tag">Informática</span>
+            <span class="tag">Internet</span>
+            <span class="tag">Automatización</span>
+            <span class="tag">PC</span>
+          </div>
+        </div>
+        <div class="tl-dot">III</div>
+      </div>
+
+      <!-- 4ª -->
+      <div class="tl-item reveal">
+        <div class="tl-content">
+          <div class="tl-era">2010 – Presente</div>
+          <h3>Cuarta Revolución Industrial</h3>
+          <h4>IA, IoT, Big Data e Hiperconectividad</h4>
+          <p>Llamada <strong>Industria 4.0</strong>, se basa en sistemas ciber-físicos, inteligencia artificial (IA), el internet de las cosas (IoT) y el Big Data, buscando una hiperconectividad total. Las fronteras entre lo físico, lo digital y lo biológico se difuminan.</p>
+          <p>La manufactura inteligente, los vehículos autónomos, la robótica colaborativa, la impresión 3D y la biotecnología convergen. La economía de datos se convierte en el recurso más valioso, y la IA toma decisiones que antes requerían intervención humana.</p>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Automation_of_foundry_with_robot.jpg/640px-Automation_of_foundry_with_robot.jpg" alt="Robot brazo industrial IA"/>
+          <div class="tl-tags">
+            <span class="tag">IA</span>
+            <span class="tag">IoT</span>
+            <span class="tag">Big Data</span>
+            <span class="tag">Robótica</span>
+            <span class="tag">Industria 4.0</span>
+          </div>
+        </div>
+        <div class="tl-dot">IV</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MAQUINISMO Y CAPITALISMO -->
+<section id="maquinismo">
+  <div class="container">
+    <p class="section-label">Eje temático 1</p>
+    <h2 class="section-title">Maquinismo y Capitalismo</h2>
+    <div class="section-rule"></div>
+    <p>El maquinismo fue el conjunto de cambios tecnológicos que sustituyeron la labor manual por máquinas. Su consecuencia directa fue la consolidación del capitalismo industrial como el sistema económico dominante del mundo moderno.</p>
+
+    <div class="maq-grid">
+      <div class="maq-card reveal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/SteamEngine_Boulton%26Watt_1784.jpg/480px-SteamEngine_Boulton%26Watt_1784.jpg" alt="Máquina de vapor Watt"/>
+        <h3>La Máquina de Vapor</h3>
+        <p>El invento de James Watt (perfeccionado en 1782) fue el símbolo del maquinismo. Convirtió el calor del carbón en movimiento mecánico, multiplicando exponencialmente la capacidad productiva humana y permitiendo la instalación de fábricas lejos de los ríos.</p>
+      </div>
+      <div class="maq-card reveal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Powerloom_weaving_in_1835.jpg/480px-Powerloom_weaving_in_1835.jpg" alt="Telar mecánico 1844"/>
+        <h3>El Sistema Fabril</h3>
+        <p>El taller artesanal disperso fue reemplazado por la fábrica centralizada. Los trabajadores —incluidos mujeres y niños— laboraban en jornadas de 12 a 16 horas bajo estrictas normas de disciplina. Surgieron las primeras formas de trabajo asalariado a gran escala.</p>
+      </div>
+      <div class="maq-card reveal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Karl_Marx_001.jpg/480px-Karl_Marx_001.jpg" alt="Karl Marx"/>
+        <h3>Capitalismo y Crítica Social</h3>
+        <p>El capitalismo industrial generó enormes riquezas para los propietarios del capital (burguesía) y condiciones precarias para los trabajadores (proletariado). Karl Marx y Friedrich Engels analizaron estas contradicciones en el <em>Manifiesto Comunista</em> (1848), dando origen al movimiento obrero.</p>
+      </div>
+      <div class="maq-card reveal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/StephensonRocket.jpg/480px-StephensonRocket.jpg" alt="Ferrocarril de vapor"/>
+        <h3>El Ferrocarril y el Mercado</h3>
+        <p>El ferrocarril fue la infraestructura que integró mercados antes separados. Redujo el costo del transporte de mercancías en un 90%, permitió la especialización regional y la competencia a escala nacional. Fue también la primera gran industria bursátil.</p>
+      </div>
+      <div class="maq-card reveal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Slumchildren.jpg/480px-Slumchildren.jpg" alt="Barrios obreros Londres 1872"/>
+        <h3>Urbanización y Desigualdad</h3>
+        <p>Las ciudades industriales crecieron de forma caótica. Londres pasó de 1 millón a 6.5 millones de habitantes entre 1800 y 1900. Los slums (barrios miserables) contrastaban con la opulencia burguesa. La desigualdad alcanzó niveles que motivarían décadas de reformas sociales.</p>
+      </div>
+      <div class="maq-card reveal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Spinner_in_Mollahan_Mills.jpg/480px-Spinner_in_Mollahan_Mills.jpg" alt="Trabajo infantil revolución industrial"/>
+        <h3>Trabajo Infantil y Reformas</h3>
+        <p>El capitalismo temprano empleó masivamente a niños en fábricas y minas. La reacción social generó las primeras leyes laborales: la Factory Act (1833) en Reino Unido limitó las horas de trabajo infantil. Estas reformas sentaron las bases de los derechos laborales modernos.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:3rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;" class="reveal">
+      <div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--brown4);margin-bottom:1rem;">Relación Maquinismo – Capitalismo</h3>
+        <p>La relación entre maquinismo y capitalismo es dialéctica: el capitalismo necesitaba la máquina para aumentar la productividad y reducir costos laborales; la máquina necesitaba el capital para ser financiada, producida y mantenida. Esta simbiosis transformó para siempre las relaciones de producción.</p>
+        <p>Adam Smith en <em>La Riqueza de las Naciones</em> (1776) teorizó la división del trabajo y el libre mercado como motores del progreso. David Ricardo y John Stuart Mill desarrollaron la economía política clásica que legitimó el sistema. Sin embargo, las crisis cíclicas del capitalismo (1825, 1857, 1873) revelaron sus contradicciones internas.</p>
+        <div class="highlight-box">
+          "El modo de producción de la vida material condiciona el proceso de la vida social, política e intelectual en general."<br>— Karl Marx, <em>Prefacio a la Contribución a la Crítica de la Economía Política</em>, 1859
+        </div>
+      </div>
+      <div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/SteamEngine_Boulton%26Watt_1784.jpg/640px-SteamEngine_Boulton%26Watt_1784.jpg" alt="Motor de vapor Watt" style="width:100%;border-radius:2px;filter:sepia(.25);box-shadow:8px 8px 0 var(--tan);">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEGUNDA Y TERCERA REVOLUCIÓN -->
+<section id="segunda-tercera">
+  <div class="container">
+    <p class="section-label">Eje temático 2</p>
+    <h2 class="section-title">Segunda y Tercera Revolución Industrial</h2>
+    <div class="section-rule"></div>
+    <p>Estas dos fases representan el salto de la energía mecánica a la energía eléctrica y, posteriormente, a la información como recurso productivo central.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem;margin:2rem 0;" class="reveal">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Early_Edisons_bulbs.jpg/480px-Early_Edisons_bulbs.jpg" alt="Bombilla eléctrica" style="width:100%;aspect-ratio:1;object-fit:contain;background:var(--parchment);padding:.5rem;border-radius:2px;filter:sepia(.2);" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Tesla_circa_1890.jpeg/480px-Tesla_circa_1890.jpeg" alt="Nikola Tesla Colorado" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;filter:sepia(.3);" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/First_flight2.jpg/640px-First_flight2.jpg" alt="Vuelo de los hermanos Wright" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;filter:sepia(.3);" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Eniac.jpg/480px-Eniac.jpg" alt="ENIAC primera computadora" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;filter:sepia(.3);" />
+    </div>
+
+    <div class="accordion">
+
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          ⚡ La Electricidad como Motor de la Segunda Revolución
+          <span class="arrow">▼</span>
+        </button>
+        <div class="acc-body">
+          <p>La electrificación fue la gran transformación de finales del siglo XIX. Edison (corriente continua) y Tesla/Westinghouse (corriente alterna) protagonizaron la "guerra de las corrientes". La corriente alterna venció por su capacidad de transmitirse a largas distancias, electrificando ciudades enteras.</p>
+          <p>La electricidad hizo posible el motor eléctrico en las fábricas, sustituyendo la transmisión mecánica central por motores individuales en cada máquina. Esto permitió mayor flexibilidad en el diseño de fábricas y aumentó drásticamente la productividad industrial.</p>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Thomas_Edison2.jpg/480px-Thomas_Edison2.jpg" alt="Thomas Edison"/>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          🚗 Fordismo: La Producción en Masa
+          <span class="arrow">▼</span>
+        </button>
+        <div class="acc-body">
+          <p>Henry Ford introdujo en 1913 la primera cadena de montaje móvil en Highland Park, Michigan. El tiempo de ensamblaje del Modelo T cayó de 12.5 horas a 93 minutos. El precio del automóvil bajó de 825 a 260 dólares en una década, haciéndolo accesible a la clase media.</p>
+          <p>El fordismo implicó también el pago de salarios altos (5 dólares por día en 1914) para que los propios trabajadores pudieran comprar lo que producían. Esta idea —productividad + consumo masivo— definió el capitalismo del siglo XX y anticipó el Estado de Bienestar.</p>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Ford_assembly_line_-_1913.jpg/640px-Ford_assembly_line_-_1913.jpg" alt="Línea Ford 1913"/>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          ✈️ Nuevas Tecnologías: Avión, Radio y Petroquímica
+          <span class="arrow">▼</span>
+        </button>
+        <div class="acc-body">
+          <p>Los hermanos Wright volaron en 1903 en Kitty Hawk; en 1969, el Apollo 11 llegó a la Luna. Ese arco de 66 años resume la velocidad de la innovación tecnológica. La aviación comercial transformó el comercio global y encogió el mundo.</p>
+          <p>La industria petroquímica creó plásticos, fertilizantes sintéticos, medicamentos y combustibles. La "Revolución Verde" de mediados del siglo XX, basada en fertilizantes nitrogenados sintéticos, permitió alimentar a una población mundial en constante crecimiento.</p>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/First_flight2.jpg/640px-First_flight2.jpg" alt="Primer vuelo hermanos Wright"/>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          💻 La Tercera Revolución: De los Transistores a Internet
+          <span class="arrow">▼</span>
+        </button>
+        <div class="acc-body">
+          <p>El transistor (1947, Bell Labs) y el circuito integrado (1958, Kilby) son los hitos fundacionales de la era digital. Permitieron miniaturizar la electrónica de manera exponencial, siguiendo la Ley de Moore: el número de transistores en un chip se duplica cada dos años.</p>
+          <p>ARPANET (1969) conectó por primera vez computadoras de universidades estadounidenses. En 1991, Tim Berners-Lee publicó la World Wide Web. Para el año 2000, Internet había conectado a 360 millones de personas; hoy supera los 5,000 millones.</p>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Internet_map_1024.jpg/640px-Internet_map_1024.jpg" alt="Mapa de internet"/>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          🤖 Automatización Programable y Robótica
+          <span class="arrow">▼</span>
+        </button>
+        <div class="acc-body">
+          <p>Los robots industriales aparecieron en las líneas de producción desde los años 60. Unimate, instalado en General Motors en 1961, fue el primero. Hoy la robótica es indispensable en automotriz, electrónica y farmacéutica.</p>
+          <p>El Control Numérico Computarizado (CNC) permitió fabricar piezas con precisión micrométrica de forma repetible. La automatización programable convirtió a los trabajadores en supervisores de máquinas, transformando radicalmente el perfil de competencias requeridas en la industria.</p>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Automation_of_foundry_with_robot.jpg/640px-Automation_of_foundry_with_robot.jpg" alt="Automatización industrial"/>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ERA DIGITAL -->
+<section id="era-digital">
+  <div class="container">
+    <p class="section-label">Eje temático 3</p>
+    <h2 class="section-title">Era Digital: La Cuarta Revolución</h2>
+    <div class="section-rule"></div>
+
+    <div class="digital-layout">
+      <div class="digital-img-stack reveal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Philipp_Jakob_Loutherbourg_d._J._002.jpg/800px-Philipp_Jakob_Loutherbourg_d._J._002.jpg" alt="" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Automation_of_foundry_with_robot.jpg/640px-Automation_of_foundry_with_robot.jpg" alt="Brazo robótico IA vs humano" style="width:100%;border-radius:2px;filter:sepia(.15);"/>
+        <img class="img-overlay" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Internet_map_1024.jpg/480px-Internet_map_1024.jpg" alt="Mapa de internet" style="position:absolute;bottom:-2rem;right:-2rem;width:55%;border:4px solid var(--cream);filter:sepia(.2);border-radius:2px;"/>
+      </div>
+      <div class="reveal">
+        <p>La Era Digital no es solo una revolución tecnológica; es una transformación de la civilización. El mundo genera actualmente más de 2.5 quintillones de bytes de datos cada día. El procesamiento de esa información con inteligencia artificial está redefiniendo todas las industrias.</p>
+        <p>La <strong>inteligencia artificial</strong> aprende de los datos para tomar decisiones: diagnostica enfermedades con precisión médica, conduce vehículos, traduce idiomas en tiempo real y genera contenido creativo. El <strong>Internet de las Cosas</strong> conecta más de 15,000 millones de dispositivos, desde termostatos hasta plantas industriales.</p>
+        <p>El <strong>Big Data</strong> permite entender el comportamiento humano a escala masiva, optimizar cadenas de suministro globales y predecir crisis financieras. Sin embargo, plantea preguntas urgentes sobre privacidad, sesgo algorítmico y concentración del poder tecnológico en pocas corporaciones.</p>
+        <div class="highlight-box">
+          "Estamos al borde de un cambio tecnológico que transformará fundamentalmente la forma en que vivimos, trabajamos y nos relacionamos."<br>— Klaus Schwab, <em>La Cuarta Revolución Industrial</em>, 2016
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-row reveal">
+      <div class="stat-box">
+        <span class="stat-num">+5 mil M</span>
+        <span class="stat-lbl">Usuarios de Internet en el mundo</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">15+ mil M</span>
+        <span class="stat-lbl">Dispositivos IoT conectados</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">2.5 QTL</span>
+        <span class="stat-lbl">Bytes de datos generados al día</span>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:2.5rem;" class="reveal">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Eniac.jpg/640px-Eniac.jpg" alt="ENIAC computadora" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px;filter:sepia(.25);"/>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IBM_PC_5150.jpg/480px-IBM_PC_5150.jpg" alt="IBM PC" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px;filter:sepia(.25);"/>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/GalaxyNexus.jpg/480px-GalaxyNexus.jpg" alt="Smartphone Wikipedia" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px;filter:sepia(.25);"/>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Deep_Blue.jpg/480px-Deep_Blue.jpg" alt="Deep learning IA" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px;filter:sepia(.2);"/>
+    </div>
+
+    <div style="margin-top:2.5rem;" class="reveal">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--brown4);margin-bottom:1rem;">Impactos de la Era Digital</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+        <div style="background:var(--parchment);border:1px solid var(--tan);padding:1.3rem;border-radius:2px;">
+          <h4 style="color:var(--rust);margin-bottom:.5rem;font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.1em;">ECONOMÍA</h4>
+          <p style="font-size:.85rem;">Surgimiento de la economía de plataformas (Uber, Airbnb, Amazon), trabajo remoto, criptomonedas y comercio electrónico global. El valor de mercado de las empresas tecnológicas supera al de sectores industriales tradicionales.</p>
+        </div>
+        <div style="background:var(--parchment);border:1px solid var(--tan);padding:1.3rem;border-radius:2px;">
+          <h4 style="color:var(--rust);margin-bottom:.5rem;font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.1em;">SOCIEDAD</h4>
+          <p style="font-size:.85rem;">Redes sociales como infraestructura de comunicación, desinformación y polarización, acceso democratizado al conocimiento a través de plataformas educativas abiertas. La identidad digital se vuelve tan relevante como la física.</p>
+        </div>
+        <div style="background:var(--parchment);border:1px solid var(--tan);padding:1.3rem;border-radius:2px;">
+          <h4 style="color:var(--rust);margin-bottom:.5rem;font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.1em;">TRABAJO</h4>
+          <p style="font-size:.85rem;">Automatización que reemplaza empleos rutinarios y creación de nuevas profesiones (ciencia de datos, ciberseguridad, diseño UX). La Cuarta Revolución planea eliminar 75 millones de empleos pero crear 133 millones nuevos para 2025.</p>
+        </div>
+        <div style="background:var(--parchment);border:1px solid var(--tan);padding:1.3rem;border-radius:2px;">
+          <h4 style="color:var(--rust);margin-bottom:.5rem;font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.1em;">MEDIO AMBIENTE</h4>
+          <p style="font-size:.85rem;">Paradoja digital: las energías renovables y la eficiencia energética de la IA coexisten con el enorme consumo eléctrico de los centros de datos. La huella de carbono del sector TIC supera ya a la de la aviación global.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section id="galeria">
+  <div class="container">
+    <div class="gallery-title-wrap">
+      <p class="section-label">Documento visual</p>
+      <h2 class="section-title">Galería de Imágenes</h2>
+      <div class="section-rule"></div>
+      <p>Haz clic en cualquier imagen para ampliarla. Filtra por revolución.</p>
+    </div>
+
+    <div class="gallery-filter">
+      <button class="filter-btn active" onclick="filterGal(this,'all')">Todas</button>
+      <button class="filter-btn" onclick="filterGal(this,'1ra')">1ª Revolución</button>
+      <button class="filter-btn" onclick="filterGal(this,'2da')">2ª Revolución</button>
+      <button class="filter-btn" onclick="filterGal(this,'3ra')">3ª Revolución</button>
+      <button class="filter-btn" onclick="filterGal(this,'4ta')">4ª Revolución</button>
+    </div>
+
+    <div class="gallery-grid" id="gallery-grid">
+
+      <div class="gallery-item" data-cat="1ra" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Philipp_Jakob_Loutherbourg_d._J._002.jpg/640px-Philipp_Jakob_Loutherbourg_d._J._002.jpg" alt="Coalbrookdale de noche"/>
+        <div class="gallery-caption">Coalbrookdale · 1ª Rev.</div>
+      </div>
+      <div class="gallery-item" data-cat="1ra" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/SteamEngine_Boulton%26Watt_1784.jpg/640px-SteamEngine_Boulton%26Watt_1784.jpg" alt="Máquina de vapor Watt"/>
+        <div class="gallery-caption">Máquina de Watt · 1769</div>
+      </div>
+      <div class="gallery-item" data-cat="1ra" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Powerloom_weaving_in_1835.jpg/640px-Powerloom_weaving_in_1835.jpg" alt="Telares mecánicos 1844"/>
+        <div class="gallery-caption">Telares Mecánicos · 1844</div>
+      </div>
+      <div class="gallery-item" data-cat="1ra" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Slumchildren.jpg/480px-Slumchildren.jpg" alt="Barrios pobres Londres"/>
+        <div class="gallery-caption">Slums Londres · 1872</div>
+      </div>
+
+      <div class="gallery-item" data-cat="2da" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Ford_assembly_line_-_1913.jpg/640px-Ford_assembly_line_-_1913.jpg" alt="Línea de ensamble Ford"/>
+        <div class="gallery-caption">Línea Ford · 1913</div>
+      </div>
+      <div class="gallery-item" data-cat="2da" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Tesla_circa_1890.jpeg/480px-Tesla_circa_1890.jpeg" alt="Nikola Tesla"/>
+        <div class="gallery-caption">Nikola Tesla · C. Springs</div>
+      </div>
+      <div class="gallery-item" data-cat="2da" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Thomas_Edison2.jpg/480px-Thomas_Edison2.jpg" alt="Thomas Edison"/>
+        <div class="gallery-caption">Thomas Edison</div>
+      </div>
+      <div class="gallery-item" data-cat="2da" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/First_flight2.jpg/640px-First_flight2.jpg" alt="Primer vuelo Wright"/>
+        <div class="gallery-caption">1er Vuelo Hermanos Wright</div>
+      </div>
+
+      <div class="gallery-item" data-cat="3ra" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Eniac.jpg/640px-Eniac.jpg" alt="ENIAC"/>
+        <div class="gallery-caption">ENIAC · 1ª Computadora</div>
+      </div>
+      <div class="gallery-item" data-cat="3ra" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IBM_PC_5150.jpg/640px-IBM_PC_5150.jpg" alt="IBM PC"/>
+        <div class="gallery-caption">IBM PC · 1981</div>
+      </div>
+      <div class="gallery-item" data-cat="3ra" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Internet_map_1024.jpg/640px-Internet_map_1024.jpg" alt="Mapa de internet"/>
+        <div class="gallery-caption">Mapa de Internet</div>
+      </div>
+      <div class="gallery-item" data-cat="3ra" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Eniac.jpg/640px-Eniac.jpg" alt="ENIAC Aberdeen"/>
+        <div class="gallery-caption">ENIAC Aberdeen · 1947</div>
+      </div>
+
+      <div class="gallery-item" data-cat="4ta" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Automation_of_foundry_with_robot.jpg/640px-Automation_of_foundry_with_robot.jpg" alt="Robot vs brazo humano"/>
+        <div class="gallery-caption">IA: Brazo Robot vs Humano</div>
+      </div>
+      <div class="gallery-item" data-cat="4ta" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Automation_of_foundry_with_robot.jpg/640px-Automation_of_foundry_with_robot.jpg" alt="Automatización"/>
+        <div class="gallery-caption">Automatización Digital</div>
+      </div>
+      <div class="gallery-item" data-cat="4ta" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Deep_Blue.jpg/480px-Deep_Blue.jpg" alt="Deep Learning"/>
+        <div class="gallery-caption">Deep Learning / IA</div>
+      </div>
+      <div class="gallery-item" data-cat="4ta" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/GalaxyNexus.jpg/480px-GalaxyNexus.jpg" alt="Smartphone IoT"/>
+        <div class="gallery-caption">IoT: Dispositivos Conectados</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox(event)">
+  <span id="lightbox-close" onclick="closeLightbox()">✕</span>
+  <img id="lightbox-img" src="" alt=""/>
+  <div id="lightbox-caption"></div>
+</div>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="container">
+    <p class="section-label">Autoevaluación</p>
+    <h2 class="section-title">Quiz Interactivo</h2>
+    <div class="section-rule"></div>
+    <p>Pon a prueba tu comprensión sobre las Revoluciones Industriales. 8 preguntas.</p>
+
+    <div class="quiz-box" id="quiz-box">
+      <div id="quiz-inner"><!-- JS --></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSIÓN -->
+<section id="conclusion">
+  <div class="container">
+    <p class="section-label">Cierre</p>
+    <h2 class="section-title">Conclusión</h2>
+    <div class="section-rule"></div>
+
+    <div class="conclu-layout">
+      <div class="conclu-img reveal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Philipp_Jakob_Loutherbourg_d._J._002.jpg/640px-Philipp_Jakob_Loutherbourg_d._J._002.jpg" alt="Industrialización panorama"/>
+      </div>
+      <div class="reveal">
+        <p>Las cuatro Revoluciones Industriales no son episodios aislados sino capítulos de un proceso continuo de transformación tecnológica, económica y social que redefine permanentemente la condición humana. Cada fase superó a la anterior en velocidad, escala e impacto.</p>
+        <p>El <strong>maquinismo y el capitalismo</strong> establecieron las bases del mundo moderno: la fábrica, el trabajo asalariado, el mercado global y la desigualdad estructural. La Segunda Revolución amplió estos procesos con la producción en masa y las nuevas fuentes de energía, creando el estilo de vida del consumidor del siglo XX.</p>
+        <p>La <strong>Tercera Revolución Industrial</strong> llevó la información al centro de la economía, mientras que la <strong>Era Digital</strong> en la que vivimos está borrando las fronteras entre lo físico y lo virtual. La inteligencia artificial amenaza y promete a partes iguales: puede eliminar millones de empleos o crear una era de abundancia sin precedentes.</p>
+        <div class="highlight-box">
+          El legado más profundo de las Revoluciones Industriales no son las máquinas ni los algoritmos, sino la capacidad humana de imaginar un futuro diferente y construirlo con sus propias manos.
+        </div>
+        <p>El desafío de nuestro tiempo es asegurar que los beneficios de la Cuarta Revolución Industrial sean distribuidos equitativamente, que la automatización libere al ser humano de las tareas degradantes y le permita desarrollar su potencial creativo, y que la tecnología esté al servicio de la dignidad humana y la sostenibilidad del planeta.</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem;margin-top:3rem;" class="reveal">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/SteamEngine_Boulton%26Watt_1784.jpg/480px-SteamEngine_Boulton%26Watt_1784.jpg" alt="Motor vapor" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px;filter:sepia(.25);"/>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Ford_assembly_line_-_1913.jpg/480px-Ford_assembly_line_-_1913.jpg" alt="Ford" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px;filter:sepia(.25);"/>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IBM_PC_5150.jpg/480px-IBM_PC_5150.jpg" alt="PC" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px;filter:sepia(.25);"/>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Deep_Blue.jpg/480px-Deep_Blue.jpg" alt="IA" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px;filter:sepia(.2);"/>
+    </div>
+  </div>
+</section>
+
+<!-- REFERENCIAS -->
+<section id="referencias">
+  <div class="container">
+    <p class="section-label">Fuentes</p>
+    <h2 class="section-title">Referencias Bibliográficas</h2>
+    <div class="section-rule"></div>
+    <p>Las siguientes fuentes respaldan el contenido de esta investigación, organizadas siguiendo el formato APA 7ª edición.</p>
+
+    <ul class="ref-list">
+      <li data-n="1">Schwab, K. (2016). <em>La Cuarta Revolución Industrial</em>. Debate. ISBN 978-8499926001.</li>
+      <li data-n="2">Marx, K., & Engels, F. (1848). <em>Manifiesto del Partido Comunista</em>. Progress Publishers. (Obra original publicada en 1848).</li>
+      <li data-n="3">Smith, A. (2011). <em>La Riqueza de las Naciones</em>. Alianza Editorial. (Obra original publicada en 1776).</li>
+      <li data-n="4">Rifkin, J. (2011). <em>La Tercera Revolución Industrial</em>. Paidós. ISBN 978-8449325496.</li>
+      <li data-n="5">Castells, M. (2000). <em>La Era de la Información: Economía, Sociedad y Cultura. Vol. I: La Sociedad Red</em>. Alianza Editorial.</li>
+      <li data-n="6">Chandler, A. D. (1977). <em>The Visible Hand: The Managerial Revolution in American Business</em>. Harvard University Press.</li>
+      <li data-n="7">Mokyr, J. (2002). <em>The Gifts of Athena: Historical Origins of the Knowledge Economy</em>. Princeton University Press.</li>
+      <li data-n="8">Landes, D. S. (1969). <em>The Unbound Prometheus: Technological Change and Industrial Development in Western Europe from 1750 to the Present</em>. Cambridge University Press.</li>
+      <li data-n="9">Harari, Y. N. (2015). <em>Homo Deus: Breve Historia del Mañana</em>. Debate. ISBN 978-8499926857.</li>
+      <li data-n="10">Brynjolfsson, E., & McAfee, A. (2014). <em>The Second Machine Age: Work, Progress, and Prosperity in a Time of Brilliant Technologies</em>. W. W. Norton & Company.</li>
+      <li data-n="11">Thompson, E. P. (1963). <em>The Making of the English Working Class</em>. Vintage Books.</li>
+      <li data-n="12">World Economic Forum. (2020). <em>The Future of Jobs Report 2020</em>. WEF. Recuperado de https://www.weforum.org/reports/the-future-of-jobs-report-2020</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">Las Revoluciones Industriales y sus Legados</div>
+  <p>Brizuela Araujo Héctor Alejandro · Grupo 6CPGM · 08/05/2026</p>
+  <p style="margin-top:.4rem;color:var(--brown2);">Pensamiento Histórico de la Ciencia y la Tecnología · Prof. Urbina Hernández Carlos</p>
+</footer>
+
+<a href="#portada" id="btt" title="Volver arriba">↑</a>
+
+<script>
+  // ── PROGRESS BAR ──
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.body.scrollHeight - window.innerHeight;
+    document.getElementById('progress-bar').style.width = (scrolled / total * 100) + '%';
+
+    // BTT
+    const btt = document.getElementById('btt');
+    scrolled > 400 ? btt.classList.add('visible') : btt.classList.remove('visible');
+  });
+
+  // ── HAMBURGER ──
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('nav-links').classList.toggle('open');
+  });
+
+  // ── REVEAL ON SCROLL ──
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+
+  // ── ACCORDION ──
+  function toggleAcc(btn) {
+    const body = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    document.querySelectorAll('.acc-header').forEach(b => {
+      b.classList.remove('open');
+      b.nextElementSibling.classList.remove('open');
+    });
+    if (!isOpen) {
+      btn.classList.add('open');
+      body.classList.add('open');
+    }
+  }
+
+  // ── GALLERY FILTER ──
+  function filterGal(btn, cat) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      if (cat === 'all' || item.dataset.cat === cat) {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+
+  // ── LIGHTBOX ──
+  function openLightbox(el) {
+    const img = el.querySelector('img');
+    const cap = el.querySelector('.gallery-caption');
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox-caption').textContent = cap.textContent;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(e) {
+    if (!e || e.target.id === 'lightbox' || e.target.id === 'lightbox-close') {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  // ── QUIZ ──
+  const questions = [
+    {
+      q: "¿Cuál fue la tecnología motriz de la Primera Revolución Industrial?",
+      opts: ["La electricidad","El vapor y el carbón","El petróleo","La energía nuclear"],
+      ans: 1,
+      exp: "La máquina de vapor, perfeccionada por James Watt en 1769, fue el símbolo de la Primera Revolución Industrial."
+    },
+    {
+      q: "¿En qué país se originó la Primera Revolución Industrial?",
+      opts: ["Francia","Estados Unidos","Gran Bretaña","Alemania"],
+      ans: 2,
+      exp: "Gran Bretaña fue la cuna de la Revolución Industrial gracias a sus reservas de carbón, su legislación comercial y su sistema colonial."
+    },
+    {
+      q: "¿Qué fue el fordismo?",
+      opts: ["Un movimiento político obrero","Un sistema de producción en masa con cadena de ensamblaje","Una teoría económica de Adam Smith","Un tipo de motor de combustión"],
+      ans: 1,
+      exp: "Henry Ford introdujo en 1913 la cadena de montaje móvil, reduciendo el tiempo de ensamblaje del Modelo T de 12 horas a 93 minutos."
+    },
+    {
+      q: "¿Qué tecnologías caracterizan la Cuarta Revolución Industrial?",
+      opts: ["Vapor y carbón","Electricidad y acero","IA, IoT y Big Data","Energía nuclear y plásticos"],
+      ans: 2,
+      exp: "La Industria 4.0 se basa en sistemas ciber-físicos, inteligencia artificial, internet de las cosas y análisis masivo de datos."
+    },
+    {
+      q: "¿Quién escribió el Manifiesto Comunista como respuesta a las condiciones del capitalismo industrial?",
+      opts: ["Adam Smith","John Stuart Mill","Karl Marx y Friedrich Engels","David Ricardo"],
+      ans: 2,
+      exp: "Marx y Engels publicaron el Manifiesto Comunista en 1848 analizando las contradicciones del capitalismo industrial."
+    },
+    {
+      q: "¿Cuál fue la red precursora de Internet?",
+      opts: ["ETHERNET","ARPANET","CompuServe","Minitel"],
+      ans: 1,
+      exp: "ARPANET, creada por el Departamento de Defensa de EE.UU. en 1969, fue la red que dio origen al Internet moderno."
+    },
+    {
+      q: "¿Qué postula la Ley de Moore?",
+      opts: [
+        "El precio del petróleo sube cada dos años",
+        "La productividad industrial se duplica cada década",
+        "El número de transistores en un chip se duplica cada dos años",
+        "El ancho de banda de internet se triplica anualmente"
+      ],
+      ans: 2,
+      exp: "Gordon Moore observó en 1965 que el número de transistores en un circuito integrado se duplicaba aproximadamente cada dos años."
+    },
+    {
+      q: "¿Cuál es el principal legado social de la Primera Revolución Industrial?",
+      opts: [
+        "La eliminación de la pobreza",
+        "La creación de la clase obrera y el movimiento sindical",
+        "La democratización del voto",
+        "El fin del trabajo infantil"
+      ],
+      ans: 1,
+      exp: "La industrialización creó el proletariado urbano y sus condiciones precarias impulsaron el movimiento obrero y las primeras leyes laborales."
+    }
+  ];
+
+  let current = 0, score = 0, answered = false;
+
+  function renderQuestion() {
+    const q = questions[current];
+    const box = document.getElementById('quiz-inner');
+    box.innerHTML = `
+      <div class="quiz-progress">Pregunta ${current+1} de ${questions.length}</div>
+      <div class="quiz-question">${q.q}</div>
+      <div class="quiz-options" id="opts">
+        ${q.opts.map((o,i)=>`<button class="quiz-opt" onclick="selectOpt(this,${i})">${o}</button>`).join('')}
+      </div>
+      <div class="quiz-feedback" id="feedback"></div>
+      <div class="quiz-nav">
+        <button class="btn" id="next-btn" onclick="nextQ()" disabled>Siguiente →</button>
+        <span style="font-size:.8rem;color:var(--text-light)">Puntaje: ${score}/${questions.length}</span>
+      </div>
+    `;
+    answered = false;
+  }
+
+  function selectOpt(btn, idx) {
+    if (answered) return;
+    answered = true;
+    const q = questions[current];
+    const opts = document.querySelectorAll('.quiz-opt');
+    opts.forEach((o, i) => {
+      if (i === q.ans) o.classList.add('correct');
+      else if (i === idx) o.classList.add('wrong');
+      o.disabled = true;
+    });
+    if (idx === q.ans) score++;
+    document.getElementById('feedback').textContent = q.exp;
+    document.getElementById('next-btn').disabled = false;
+  }
+
+  function nextQ() {
+    current++;
+    if (current < questions.length) {
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  }
+
+  function showResult() {
+    const pct = Math.round(score / questions.length * 100);
+    const msg = pct >= 80 ? '¡Excelente dominio del tema!' : pct >= 60 ? 'Buen resultado, sigue repasando.' : 'Repasa la investigación e intenta de nuevo.';
+    document.getElementById('quiz-inner').innerHTML = `
+      <div class="quiz-score">
+        <div style="font-size:3rem;color:var(--gold);margin-bottom:.5rem;">${score}/${questions.length}</div>
+        <div style="font-size:1rem;color:var(--brown3);margin-bottom:1rem;">${pct}% de aciertos</div>
+        <div style="font-size:.95rem;color:var(--rust);margin-bottom:1.5rem;">${msg}</div>
+        <button class="btn" onclick="restartQuiz()">Reintentar</button>
+      </div>
+    `;
+  }
+
+  function restartQuiz() {
+    current = 0; score = 0;
+    renderQuestion();
+  }
+
+  renderQuestion();
+</script>
+</body>
+</html>
