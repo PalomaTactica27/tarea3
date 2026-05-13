@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impacto Social y Ético de la Tecnología</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:       #1a1a2e;
+    --deep:      #16213e;
+    --mid:       #0f3460;
+    --accent:    #1a5276;
+    --highlight: #2e86ab;
+    --soft:      #4a9bbe;
+    --pale:      #a8d8ea;
+    --mist:      #d4eaf7;
+    --fog:       #eaf4fb;
+    --cream:     #f5f9fc;
+    --white:     #ffffff;
+    --gold:      #c9a84c;
+    --gold-light:#e8c97a;
+    --text-main: #1c2b3a;
+    --text-body: #2d4059;
+    --text-muted:#4a6278;
+    --border:    rgba(42,130,183,0.18);
+    --shadow:    0 4px 32px rgba(15,52,96,0.12);
+    --shadow-lg: 0 12px 60px rgba(15,52,96,0.18);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--cream);
+    color: var(--text-body);
+    overflow-x: hidden;
+    line-height: 1.75;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--fog); }
+  ::-webkit-scrollbar-thumb { background: var(--highlight); border-radius: 3px; }
+
+  /* ── PROGRESS BAR ── */
+  #progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--highlight), var(--gold-light));
+    width: 0%; z-index: 9999;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 8px var(--gold);
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    background: rgba(22,33,62,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,168,76,0.25);
+    padding: 0.75rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.3s ease;
+  }
+  nav .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem; font-weight: 600;
+    color: var(--gold-light);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+  nav .nav-links {
+    display: flex; gap: 1.5rem; list-style: none;
+  }
+  nav .nav-links a {
+    color: var(--mist); text-decoration: none;
+    font-family: 'DM Mono', monospace; font-size: 0.72rem;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.25s;
+  }
+  nav .nav-links a:hover { color: var(--gold-light); }
+
+  /* ── PORTADA ── */
+  #portada {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--ink) 0%, var(--deep) 45%, var(--mid) 100%);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 6rem 2rem 4rem;
+  }
+
+  .portada-bg {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(46,134,171,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(201,168,76,0.1) 0%, transparent 40%),
+      radial-gradient(circle at 60% 80%, rgba(26,82,118,0.2) 0%, transparent 45%);
+  }
+
+  .portada-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image:
+      linear-gradient(var(--pale) 1px, transparent 1px),
+      linear-gradient(90deg, var(--pale) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Floating particles */
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.15);
+    animation: float linear infinite;
+  }
+
+  @keyframes float {
+    0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+  }
+
+  .portada-content {
+    position: relative; z-index: 2;
+    text-align: center; max-width: 820px;
+  }
+
+  .portada-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 0.4rem 1.2rem; border-radius: 20px;
+    margin-bottom: 2rem;
+    background: rgba(201,168,76,0.06);
+    animation: fadeInDown 0.8s ease forwards;
+  }
+
+  .portada-materia {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 4vw, 2.6rem);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.2; margin-bottom: 1rem;
+    animation: fadeInDown 0.9s ease 0.1s both;
+  }
+
+  .portada-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 800; font-style: italic;
+    background: linear-gradient(135deg, var(--gold-light), var(--pale), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.15; margin-bottom: 2.5rem;
+    animation: fadeInDown 1s ease 0.2s both;
+  }
+
+  .portada-divider {
+    width: 80px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 2.5rem;
+    animation: scaleIn 0.8s ease 0.4s both;
+  }
+
+  .portada-info {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem; max-width: 700px; margin: 0 auto;
+    animation: fadeInUp 1s ease 0.5s both;
+  }
+
+  .portada-info-item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 1rem 1.2rem;
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  .portada-info-item:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.09);
+  }
+  .portada-info-item .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); display: block; margin-bottom: 0.3rem;
+  }
+  .portada-info-item .value {
+    font-size: 0.9rem; color: var(--mist); font-weight: 400;
+    font-family: 'Source Serif 4', serif;
+  }
+
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0.5rem; color: rgba(255,255,255,0.4);
+    font-family: 'DM Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.1em; animation: bounce 2s infinite;
+  }
+  .scroll-hint svg { opacity: 0.5; }
+
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scaleIn {
+    from { transform: scaleX(0); opacity: 0; }
+    to   { transform: scaleX(1); opacity: 1; }
+  }
+
+  /* ── ÍNDICE ── */
+  #indice {
+    background: var(--deep);
+    padding: 5rem 2rem;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700; line-height: 1.2;
+  }
+
+  #indice .section-title { color: var(--white); }
+
+  .indice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem; margin-top: 3rem;
+    max-width: 1100px; margin-left: auto; margin-right: auto;
+  }
+
+  .indice-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(200,168,76,0.15);
+    border-radius: 12px; padding: 1.4rem 1.6rem;
+    cursor: pointer; text-decoration: none;
+    display: flex; align-items: flex-start; gap: 1rem;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    position: relative; overflow: hidden;
+  }
+  .indice-item::before {
+    content: ''; position: absolute;
+    inset: 0; background: linear-gradient(135deg, rgba(46,134,171,0.1), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .indice-item:hover { transform: translateY(-4px) scale(1.01); border-color: rgba(200,168,76,0.4); }
+  .indice-item:hover::before { opacity: 1; }
+
+  .indice-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; color: var(--gold);
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 6px; padding: 0.3rem 0.5rem;
+    min-width: 36px; text-align: center;
+    flex-shrink: 0; margin-top: 0.1rem;
+  }
+  .indice-text h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; color: var(--mist); font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+  .indice-text p {
+    font-size: 0.78rem; color: rgba(255,255,255,0.4);
+    font-family: 'DM Mono', monospace; line-height: 1.4;
+  }
+
+  /* ── SECCIONES GENERALES ── */
+  .section {
+    max-width: 1100px; margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-header { margin-bottom: 3rem; }
+
+  /* ── INTRO ── */
+  #introduccion { background: var(--fog); }
+  #introduccion .section-title { color: var(--mid); }
+
+  .intro-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; align-items: start;
+  }
+
+  .intro-text p {
+    margin-bottom: 1.2rem;
+    font-size: 1.05rem; color: var(--text-body);
+  }
+
+  .intro-visual {
+    position: sticky; top: 80px;
+  }
+
+  .visual-card {
+    background: linear-gradient(135deg, var(--mid), var(--accent));
+    border-radius: 16px; overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+  }
+  .visual-card img {
+    width: 100%; display: block;
+    filter: brightness(0.85) saturate(0.9);
+    transition: transform 0.5s ease, filter 0.4s ease;
+  }
+  .visual-card:hover img { transform: scale(1.04); filter: brightness(0.95) saturate(1); }
+  .visual-card .caption {
+    padding: 1rem 1.2rem;
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    color: var(--mist); background: rgba(15,52,96,0.9);
+    letter-spacing: 0.05em;
+  }
+
+  .quote-block {
+    border-left: 3px solid var(--gold);
+    padding: 1.2rem 1.5rem;
+    background: rgba(201,168,76,0.06);
+    border-radius: 0 10px 10px 0;
+    margin: 2rem 0;
+  }
+  .quote-block p {
+    font-style: italic; font-size: 1.1rem;
+    color: var(--mid); margin: 0 !important;
+  }
+  .quote-block cite {
+    display: block; margin-top: 0.5rem;
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+
+  /* ── DESARROLLO ── */
+  #desarrollo { background: var(--white); }
+  #desarrollo .section-title { color: var(--ink); }
+
+  /* ── TEMAS CARDS ── */
+  .temas-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem; margin-top: 3rem;
+  }
+
+  .tema-card {
+    border-radius: 16px; overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: var(--cream);
+    border: 1px solid var(--border);
+  }
+  .tema-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+  .tema-card-header {
+    padding: 2rem; position: relative;
+    min-height: 200px; display: flex; flex-direction: column; justify-content: flex-end;
+    overflow: hidden;
+  }
+  .tema-card-header img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; filter: brightness(0.5) saturate(0.8);
+    transition: transform 0.5s ease;
+  }
+  .tema-card:hover .tema-card-header img { transform: scale(1.06); }
+  .tema-card-header-content { position: relative; z-index: 2; }
+  .tema-card-num {
+    font-family: 'DM Mono', monospace; font-size: 0.65rem;
+    color: var(--gold); letter-spacing: 0.2em; margin-bottom: 0.4rem;
+  }
+  .tema-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; color: var(--white); font-weight: 700;
+  }
+
+  .tema-card-body { padding: 1.8rem; }
+  .tema-card-body p { font-size: 0.95rem; margin-bottom: 1rem; color: var(--text-body); }
+
+  .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .tag {
+    background: var(--mist); color: var(--mid);
+    font-family: 'DM Mono', monospace; font-size: 0.65rem;
+    padding: 0.3rem 0.7rem; border-radius: 20px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ACCORDION ── */
+  .accordion-wrap { margin-top: 3.5rem; }
+  .accordion-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; color: var(--mid); margin-bottom: 1.5rem;
+  }
+
+  .accordion {
+    border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 2px 10px rgba(15,52,96,0.06);
+  }
+  .accordion-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 1.5rem;
+    background: var(--fog);
+    cursor: pointer;
+    border: none; width: 100%; text-align: left;
+    transition: background 0.25s;
+    gap: 1rem;
+  }
+  .accordion-header:hover { background: var(--mist); }
+  .accordion-header h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; color: var(--mid); font-weight: 600;
+  }
+  .accordion-icon {
+    width: 24px; height: 24px; flex-shrink: 0;
+    background: var(--highlight); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.3s ease, background 0.25s;
+    color: white; font-size: 0.9rem;
+  }
+  .accordion.open .accordion-icon { transform: rotate(45deg); background: var(--gold); }
+
+  .accordion-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0,1,0,1);
+    background: var(--white);
+  }
+  .accordion.open .accordion-body { max-height: 1200px; transition: max-height 0.6s ease-in-out; }
+  .accordion-body-inner {
+    padding: 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+  .accordion-body-inner p { font-size: 0.95rem; color: var(--text-body); }
+  .accordion-body-inner img {
+    width: 100%; border-radius: 10px;
+    box-shadow: var(--shadow); display: block;
+    filter: saturate(0.85);
+    transition: filter 0.3s;
+  }
+  .accordion-body-inner img:hover { filter: saturate(1); }
+
+  /* ── STATS / INFOGRAFÍA ── */
+  .stats-section {
+    background: linear-gradient(135deg, var(--mid) 0%, var(--accent) 100%);
+    padding: 5rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  .stats-section::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(255,255,255,0.06)'/%3E%3C/svg%3E");
+  }
+  .stats-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
+  .stats-inner .section-title { color: var(--white); margin-bottom: 0.5rem; }
+  .stats-inner .section-label { color: var(--gold); }
+  .stats-inner > p {
+    color: var(--mist); max-width: 600px;
+    font-size: 1rem; margin: 1rem 0 3rem;
+  }
+
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px; padding: 2rem 1.5rem;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  .stat-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.12); }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem; font-weight: 800;
+    background: linear-gradient(135deg, var(--gold-light), var(--pale));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .stat-label { color: var(--mist); font-size: 0.85rem; line-height: 1.4; }
+
+  /* ── IMAGEN GALLERY ── */
+  .gallery-section {
+    background: var(--fog); padding: 5rem 2rem;
+  }
+  .gallery-inner { max-width: 1100px; margin: 0 auto; }
+  .gallery-inner .section-title { color: var(--mid); margin-bottom: 3rem; }
+
+  .gallery-masonry {
+    columns: 3; column-gap: 1rem;
+  }
+  .gallery-item {
+    break-inside: avoid; margin-bottom: 1rem;
+    position: relative; overflow: hidden;
+    border-radius: 12px; cursor: pointer;
+    box-shadow: var(--shadow);
+  }
+  .gallery-item img {
+    width: 100%; display: block;
+    filter: saturate(0.8) brightness(0.9);
+    transition: transform 0.5s ease, filter 0.4s ease;
+  }
+  .gallery-item:hover img { transform: scale(1.06); filter: saturate(1) brightness(1); }
+  .gallery-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(15,52,96,0.85) 0%, transparent 50%);
+    opacity: 0; transition: opacity 0.3s;
+    display: flex; align-items: flex-end; padding: 1rem;
+  }
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-overlay span {
+    color: var(--mist); font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.1em;
+  }
+
+  /* ── LIGHTBOX ── */
+  #lightbox {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(10,15,30,0.95); backdrop-filter: blur(10px);
+    display: none; align-items: center; justify-content: center;
+    padding: 2rem;
+  }
+  #lightbox.active { display: flex; }
+  #lightbox img {
+    max-width: 90vw; max-height: 85vh;
+    border-radius: 12px; box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+    object-fit: contain;
+  }
+  #lightbox-close {
+    position: fixed; top: 1.5rem; right: 1.5rem;
+    background: rgba(255,255,255,0.1); border: none;
+    color: white; font-size: 1.5rem; width: 44px; height: 44px;
+    border-radius: 50%; cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+    transition: background 0.25s;
+  }
+  #lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+  /* ── TIMELINE ── */
+  .timeline-section { background: var(--white); padding: 5rem 2rem; }
+  .timeline-inner { max-width: 1100px; margin: 0 auto; }
+  .timeline-inner .section-title { color: var(--ink); }
+
+  .timeline {
+    position: relative; margin-top: 3rem;
+    padding-left: 2rem;
+  }
+  .timeline::before {
+    content: ''; position: absolute;
+    left: 12px; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(to bottom, var(--highlight), var(--gold), var(--soft));
+  }
+
+  .timeline-item {
+    position: relative; margin-bottom: 3rem;
+    padding-left: 2.5rem;
+  }
+  .timeline-dot {
+    position: absolute; left: -26px; top: 4px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--highlight);
+    border: 3px solid var(--white);
+    box-shadow: 0 0 0 3px var(--highlight);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .timeline-item:hover .timeline-dot {
+    transform: scale(1.3);
+    box-shadow: 0 0 0 5px rgba(46,134,171,0.3);
+  }
+  .timeline-year {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem;
+    color: var(--gold); letter-spacing: 0.15em; margin-bottom: 0.3rem;
+  }
+  .timeline-item h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; color: var(--mid); font-weight: 600; margin-bottom: 0.5rem;
+  }
+  .timeline-item p { font-size: 0.9rem; color: var(--text-muted); max-width: 700px; }
+
+  /* ── INTERACTIVO: QUIZ ── */
+  .interactive-section { background: var(--fog); padding: 5rem 2rem; }
+  .interactive-inner { max-width: 800px; margin: 0 auto; }
+  .interactive-inner .section-title { color: var(--mid); }
+  .interactive-inner > p { margin: 1rem 0 2.5rem; color: var(--text-body); }
+
+  .quiz-card {
+    background: var(--white); border-radius: 16px;
+    padding: 2.5rem; box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .quiz-question {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: var(--mid); margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 0.75rem; }
+  .quiz-option {
+    border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 0.9rem 1.2rem;
+    cursor: pointer; transition: all 0.25s ease;
+    font-size: 0.95rem; background: var(--cream);
+    color: var(--text-body);
+    text-align: left;
+    font-family: 'Source Serif 4', serif;
+  }
+  .quiz-option:hover:not(:disabled) { border-color: var(--highlight); background: var(--mist); color: var(--mid); }
+  .quiz-option.correct { border-color: #27ae60; background: #eafaf1; color: #1e8449; }
+  .quiz-option.wrong { border-color: #e74c3c; background: #fdedec; color: #c0392b; }
+  .quiz-feedback {
+    margin-top: 1.5rem; padding: 1rem 1.2rem;
+    border-radius: 8px; font-size: 0.9rem; display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct-fb { background: #eafaf1; color: #1e8449; border-left: 3px solid #27ae60; }
+  .quiz-feedback.wrong-fb { background: #fdedec; color: #c0392b; border-left: 3px solid #e74c3c; }
+
+  .quiz-nav { margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+  .quiz-progress { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text-muted); }
+  .btn-next {
+    background: var(--highlight); color: white;
+    border: none; padding: 0.7rem 1.5rem; border-radius: 8px;
+    cursor: pointer; font-family: 'Source Serif 4', serif;
+    font-size: 0.9rem; transition: background 0.25s, transform 0.2s;
+    display: none;
+  }
+  .btn-next.show { display: block; }
+  .btn-next:hover { background: var(--mid); transform: translateY(-1px); }
+
+  /* ── CONCLUSIÓN ── */
+  #conclusion { background: var(--deep); padding: 5rem 2rem; }
+  .conclusion-inner { max-width: 1100px; margin: 0 auto; }
+  #conclusion .section-title { color: var(--white); }
+  #conclusion .section-label { color: var(--gold); }
+
+  .conclusion-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; margin-top: 3rem; align-items: start;
+  }
+
+  .conclusion-text p {
+    color: rgba(255,255,255,0.75); margin-bottom: 1.2rem; font-size: 1rem;
+  }
+
+  .conclusion-points {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .conclusion-point {
+    display: flex; gap: 1rem; align-items: flex-start;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 1.2rem;
+    transition: background 0.25s, transform 0.25s;
+  }
+  .conclusion-point:hover { background: rgba(255,255,255,0.09); transform: translateX(4px); }
+  .conclusion-point-icon {
+    width: 36px; height: 36px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--gold), var(--highlight));
+    border-radius: 8px; display: flex; align-items: center;
+    justify-content: center; font-size: 1rem;
+  }
+  .conclusion-point-text h5 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem; color: var(--mist); margin-bottom: 0.25rem;
+  }
+  .conclusion-point-text p { color: rgba(255,255,255,0.5); font-size: 0.85rem; margin: 0 !important; }
+
+  /* ── REFERENCIAS ── */
+  #referencias { background: var(--fog); padding: 5rem 2rem; }
+  .referencias-inner { max-width: 900px; margin: 0 auto; }
+  #referencias .section-title { color: var(--mid); }
+
+  .ref-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem; counter-reset: ref-counter; }
+  .ref-item {
+    display: flex; gap: 1.2rem;
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.2rem 1.4rem;
+    counter-increment: ref-counter;
+    transition: transform 0.25s, box-shadow 0.25s;
+    align-items: flex-start;
+  }
+  .ref-item:hover { transform: translateX(4px); box-shadow: var(--shadow); }
+  .ref-num {
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    color: var(--gold); background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.3rem 0.6rem; border-radius: 6px;
+    flex-shrink: 0; height: fit-content;
+    margin-top: 0.1rem;
+  }
+  .ref-item p { font-size: 0.9rem; color: var(--text-body); line-height: 1.6; }
+  .ref-item em { color: var(--highlight); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(200,168,76,0.2);
+  }
+  footer p {
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    color: rgba(255,255,255,0.3); letter-spacing: 0.1em;
+  }
+  footer .footer-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: rgba(255,255,255,0.6);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── BACK TO TOP ── */
+  #back-top {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+    background: var(--mid); color: white;
+    border: none; width: 46px; height: 46px;
+    border-radius: 50%; cursor: pointer; font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow);
+    opacity: 0; transform: translateY(20px);
+    transition: all 0.3s ease;
+  }
+  #back-top.visible { opacity: 1; transform: translateY(0); }
+  #back-top:hover { background: var(--gold); }
+
+  /* ── REVEAL ANIMATIONS ── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav .nav-links { display: none; }
+    .intro-layout, .conclusion-grid, .accordion-body-inner { grid-template-columns: 1fr; }
+    .gallery-masonry { columns: 2; }
+    .intro-visual { position: static; }
+  }
+  @media (max-width: 480px) {
+    .gallery-masonry { columns: 1; }
+    .portada-info { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#portada" class="logo">FIST · Pensamiento Histórico</a>
+  <ul class="nav-links">
+    <li><a href="#indice">Índice</a></li>
+    <li><a href="#introduccion">Intro</a></li>
+    <li><a href="#desarrollo">Desarrollo</a></li>
+    <li><a href="#conclusion">Conclusión</a></li>
+    <li><a href="#referencias">Referencias</a></li>
+  </ul>
+</nav>
+
+<!-- PORTADA -->
+<section id="portada">
+  <div class="portada-bg"></div>
+  <div class="portada-grid"></div>
+  <div id="particles"></div>
+
+  <div class="portada-content">
+    <span class="portada-badge">Investigación · 2026</span>
+    <h1 class="portada-materia">Pensamiento Histórico de la Ciencia y la Tecnología</h1>
+    <h2 class="portada-titulo">Impacto Social y Ético de la Tecnología</h2>
+    <div class="portada-divider"></div>
+    <div class="portada-info">
+      <div class="portada-info-item">
+        <span class="label">Docente</span>
+        <span class="value">Urbina Hernández Carlos</span>
+      </div>
+      <div class="portada-info-item">
+        <span class="label">Alumno</span>
+        <span class="value">Brizuela Araujo Héctor Alejandro</span>
+      </div>
+      <div class="portada-info-item">
+        <span class="label">Grupo</span>
+        <span class="value">6CPGM</span>
+      </div>
+      <div class="portada-info-item">
+        <span class="label">Fecha</span>
+        <span class="value">08 · 05 · 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>desplazar</span>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M8 3v10M3 9l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ÍNDICE -->
+<section id="indice">
+  <div class="section">
+    <div class="section-header reveal">
+      <div class="section-label">Navegación</div>
+      <h2 class="section-title">Índice de Contenidos</h2>
+    </div>
+    <div class="indice-grid">
+      <a href="#introduccion" class="indice-item reveal">
+        <span class="indice-num">01</span>
+        <div class="indice-text">
+          <h4>Introducción</h4>
+          <p>Marco ético y contexto histórico de la tecnología moderna</p>
+        </div>
+      </a>
+      <a href="#desarrollo" class="indice-item reveal">
+        <span class="indice-num">02</span>
+        <div class="indice-text">
+          <h4>Tecnología y Poder</h4>
+          <p>Control de datos, vigilancia y asimetrías digitales</p>
+        </div>
+      </a>
+      <a href="#bioética" class="indice-item reveal">
+        <span class="indice-num">03</span>
+        <div class="indice-text">
+          <h4>Bioética y Salud</h4>
+          <p>Biotecnología, IA médica y manipulación genética</p>
+        </div>
+      </a>
+      <a href="#sustentabilidad" class="indice-item reveal">
+        <span class="indice-num">04</span>
+        <div class="indice-text">
+          <h4>Sustentabilidad</h4>
+          <p>Huella ecológica digital y tecnologías verdes</p>
+        </div>
+      </a>
+      <a href="#galeria" class="indice-item reveal">
+        <span class="indice-num">05</span>
+        <div class="indice-text">
+          <h4>Galería Visual</h4>
+          <p>Imágenes y representaciones del impacto tecnológico</p>
+        </div>
+      </a>
+      <a href="#conclusion" class="indice-item reveal">
+        <span class="indice-num">06</span>
+        <div class="indice-text">
+          <h4>Conclusión</h4>
+          <p>Síntesis y reflexiones sobre el futuro ético</p>
+        </div>
+      </a>
+      <a href="#quiz" class="indice-item reveal">
+        <span class="indice-num">07</span>
+        <div class="indice-text">
+          <h4>Actividad Interactiva</h4>
+          <p>Quiz de comprensión sobre los temas de investigación</p>
+        </div>
+      </a>
+      <a href="#referencias" class="indice-item reveal">
+        <span class="indice-num">08</span>
+        <div class="indice-text">
+          <h4>Referencias Bibliográficas</h4>
+          <p>Fuentes académicas y documentos consultados</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- INTRODUCCIÓN -->
+<section id="introduccion">
+  <div class="section">
+    <div class="section-header reveal">
+      <div class="section-label">01 · Introducción</div>
+      <h2 class="section-title">El Marco Ético de la Tecnología</h2>
+    </div>
+    <div class="intro-layout">
+      <div class="intro-text">
+        <p class="reveal">La tecnología no es un fenómeno neutral. Cada invención, algoritmo o sistema bioinformático lleva consigo una carga de valores, intereses y consecuencias sociales que exigen ser examinadas con rigor ético. A lo largo de la historia, los avances científicos han redefinido el contrato social entre individuos, instituciones y Estados.</p>
+
+        <div class="quote-block reveal">
+          <p>"La ética actúa como un marco para decidir no solo qué 'podemos' construir, sino qué 'vale la pena' construir para el bien común."</p>
+          <cite>— Marco conceptual del curso</cite>
+        </div>
+
+        <p class="reveal">En el siglo XXI, la aceleración tecnológica ha producido tensiones éticas sin precedentes. La inteligencia artificial, la edición genética, la vigilancia masiva y la automatización laboral son fenómenos que ocurren a una velocidad que supera la capacidad de las instituciones reguladoras para responder de manera efectiva y equitativa.</p>
+
+        <p class="reveal">Esta investigación examina cuatro conflictos críticos que la literatura especializada identifica como centrales: la <strong>privacidad y la vigilancia</strong> en la era del big data; los <strong>sesgos en los algoritmos</strong> de inteligencia artificial; los dilemas de la <strong>biotecnología y la manipulación genética</strong>; y la cuestión de la <strong>responsabilidad en la automatización</strong> de decisiones que afectan a las personas.</p>
+
+        <p class="reveal">El enfoque adoptado es interdisciplinario: combina perspectivas de la filosofía de la tecnología, la sociología digital, la bioética y la economía política para ofrecer una visión integral de los retos que enfrentamos como sociedad en la era de la revolución tecnológica.</p>
+      </div>
+
+      <div class="intro-visual reveal">
+        <div class="visual-card">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80" alt="Circuito integrado - tecnología moderna">
+          <div class="caption">▲ Arquitectura de un microprocesador moderno — símbolo del avance tecnológico contemporáneo</div>
+        </div>
+        <br>
+        <div class="visual-card">
+          <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80" alt="Inteligencia Artificial">
+          <div class="caption">▲ Representación visual de redes neuronales artificiales</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS SECTION -->
+<section class="stats-section">
+  <div class="stats-inner">
+    <div class="section-label">Cifras Clave · 2024–2025</div>
+    <h2 class="section-title reveal">El impacto en números</h2>
+    <p class="reveal">Datos que dimensionan la magnitud de los desafíos éticos de la tecnología actual.</p>
+    <div class="stats-grid">
+      <div class="stat-card reveal">
+        <div class="stat-number" data-target="2.5">0</div>
+        <div class="stat-label">quintillones de bytes de datos generados diariamente (2025)</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number" data-target="85">0</div>
+        <div class="stat-label">% de empleos en riesgo de automatización parcial para 2030</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number" data-target="420">0</div>
+        <div class="stat-label">millones de cámaras de vigilancia instaladas en el mundo</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number" data-target="4">0</div>
+        <div class="stat-label">de cada 10 algoritmos de IA presentan sesgos documentados</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESARROLLO -->
+<section id="desarrollo">
+  <div class="section">
+    <div class="section-header reveal">
+      <div class="section-label">02 · Desarrollo</div>
+      <h2 class="section-title">Los Tres Ejes del Debate Ético</h2>
+    </div>
+
+    <!-- CARDS TEMAS PRINCIPALES -->
+    <div class="temas-grid" id="tecnologia-y-poder">
+      <div class="tema-card reveal">
+        <div class="tema-card-header">
+          <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=600&q=80" alt="Tecnología y Poder">
+          <div class="tema-card-header-content">
+            <div class="tema-card-num">01 · TECNOLOGÍA Y PODER</div>
+            <div class="tema-card-title">Control, Datos y Vigilancia</div>
+          </div>
+        </div>
+        <div class="tema-card-body">
+          <p>La concentración de poder tecnológico en pocas corporaciones y gobiernos ha creado estructuras de control sin precedentes históricos. Empresas como Meta, Alphabet y Amazon poseen bases de datos que superan en volumen y detalle a cualquier registro estatal previo.</p>
+          <p>La recopilación masiva de datos personales plantea preguntas fundamentales: ¿quién tiene acceso a información sobre nuestros movimientos, relaciones, compras y pensamientos? ¿Cómo se usa esa información y con qué fines políticos o comerciales?</p>
+          <div class="tag-list">
+            <span class="tag">Big Data</span>
+            <span class="tag">Vigilancia</span>
+            <span class="tag">Privacidad</span>
+            <span class="tag">IA & Algoritmos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tema-card reveal" id="bioética">
+        <div class="tema-card-header">
+          <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=80" alt="Bioética y Salud">
+          <div class="tema-card-header-content">
+            <div class="tema-card-num">02 · BIOÉTICA Y SALUD</div>
+            <div class="tema-card-title">Vida, Genética y Decisión</div>
+          </div>
+        </div>
+        <div class="tema-card-body">
+          <p>La biotecnología moderna coloca a la humanidad ante decisiones que antes pertenecían exclusivamente al ámbito de la filosofía: ¿podemos editar el genoma humano para eliminar enfermedades hereditarias? ¿Dónde termina el tratamiento médico y comienza el diseño de seres humanos?</p>
+          <p>La herramienta CRISPR-Cas9 permite editar secuencias de ADN con una precisión sin precedentes, abriendo tanto posibilidades terapéuticas extraordinarias como riesgos eugenésicos que la comunidad científica debate con urgencia.</p>
+          <div class="tag-list">
+            <span class="tag">CRISPR</span>
+            <span class="tag">Genoma</span>
+            <span class="tag">IA Médica</span>
+            <span class="tag">Bioética</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tema-card reveal" id="sustentabilidad">
+        <div class="tema-card-header">
+          <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=600&q=80" alt="Sustentabilidad">
+          <div class="tema-card-header-content">
+            <div class="tema-card-num">03 · SUSTENTABILIDAD</div>
+            <div class="tema-card-title">Tecnología y Planeta</div>
+          </div>
+        </div>
+        <div class="tema-card-body">
+          <p>Paradójicamente, la misma tecnología que ofrece soluciones al cambio climático genera una huella ecológica significativa. Los centros de datos globales consumen aproximadamente el 1% de la electricidad mundial, cifra que crece con la adopción masiva de la IA generativa.</p>
+          <p>La minería de minerales raros para dispositivos electrónicos genera devastación ambiental en países del Sur Global, creando una cadena de explotación que raramente es visible para el consumidor final de tecnología.</p>
+          <div class="tag-list">
+            <span class="tag">Huella Digital</span>
+            <span class="tag">Energía Verde</span>
+            <span class="tag">E-waste</span>
+            <span class="tag">Minería</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCORDION CONFLICTOS CRÍTICOS -->
+    <div class="accordion-wrap reveal">
+      <h3 class="accordion-title">Conflictos Críticos Detallados</h3>
+
+      <div class="accordion" id="acc-1">
+        <button class="accordion-header" onclick="toggleAccordion('acc-1')">
+          <h4>🔒 Privacidad y Vigilancia: el costo de la conectividad</h4>
+          <div class="accordion-icon">+</div>
+        </button>
+        <div class="accordion-body">
+          <div class="accordion-body-inner">
+            <div>
+              <p>El modelo de negocio dominante en la economía digital se basa en la extracción y monetización de datos personales. Cada búsqueda, cada "me gusta" y cada movimiento geolocalizado alimenta perfiles psicográficos que las corporaciones venden a anunciantes y, en algunos casos, a gobiernos.</p>
+              <p style="margin-top:1rem;">El escándalo de Cambridge Analytica (2018) reveló cómo los datos de 87 millones de usuarios de Facebook fueron utilizados para influir en procesos electorales en más de 20 países. Este caso paradigmático demostró que la vigilancia digital tiene consecuencias directas sobre la democracia.</p>
+              <p style="margin-top:1rem;">El Reglamento General de Protección de Datos (GDPR) europeo representa el intento más robusto de regulación hasta la fecha, pero su alcance geográfico y las limitaciones de cumplimiento siguen siendo objeto de debate entre juristas y activistas digitales.</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80" alt="Vigilancia digital y privacidad">
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion" id="acc-2">
+        <button class="accordion-header" onclick="toggleAccordion('acc-2')">
+          <h4>🤖 Inteligencia Artificial y Sesgos Algorítmicos</h4>
+          <div class="accordion-icon">+</div>
+        </button>
+        <div class="accordion-body">
+          <div class="accordion-body-inner">
+            <div>
+              <p>Los algoritmos de IA no operan en un vacío social: aprenden de datos históricos que reflejan discriminaciones preexistentes. El caso más citado es el sistema COMPAS, utilizado en el sistema judicial estadounidense para predecir la reincidencia criminal, que mostró sesgos raciales sistemáticos.</p>
+              <p style="margin-top:1rem;">Amazon abandonó en 2018 un sistema de IA para contratación porque discriminaba sistemáticamente a candidatas femeninas, habiendo aprendido de décadas de contrataciones históricamente masculinizadas en el sector tecnológico.</p>
+              <p style="margin-top:1rem;">El problema no es solo técnico: es estructural. Mientras los equipos de desarrollo de IA sigan siendo homogéneos (predominantemente masculinos, blancos y del Norte Global), los sistemas que producen tenderán a reflejar esas perspectivas limitadas.</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=80" alt="Robot e inteligencia artificial">
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion" id="acc-3">
+        <button class="accordion-header" onclick="toggleAccordion('acc-3')">
+          <h4>🧬 Biotecnología y Manipulación Genética</h4>
+          <div class="accordion-icon">+</div>
+        </button>
+        <div class="accordion-body">
+          <div class="accordion-body-inner">
+            <div>
+              <p>En 2018, el científico chino He Jiankui anunció el nacimiento de los primeros bebés cuyo genoma había sido editado con CRISPR, generando una ola de condena internacional. El caso ilustra la velocidad con que la ciencia puede superar los marcos éticos y legales establecidos.</p>
+              <p style="margin-top:1rem;">El diagnóstico genético preimplantacional (DGP) permite seleccionar embriones libres de ciertas enfermedades antes de la fecundación in vitro. La pregunta ética es: ¿cuándo se cruza la línea entre prevención terapéutica y eugenesia?</p>
+              <p style="margin-top:1rem;">La clonación terapéutica —utilizar embriones clonados para obtener tejidos compatibles— ofrece posibilidades médicas revolucionarias, pero enfrenta objeciones filosóficas y religiosas sobre el estatus moral del embrión humano que no se resolverán fácilmente.</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?w=600&q=80" alt="Biotecnología y laboratorio">
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion" id="acc-4">
+        <button class="accordion-header" onclick="toggleAccordion('acc-4')">
+          <h4>⚙️ Responsabilidad y Automatización de Decisiones</h4>
+          <div class="accordion-icon">+</div>
+        </button>
+        <div class="accordion-body">
+          <div class="accordion-body-inner">
+            <div>
+              <p>Cuando un vehículo autónomo ocasiona un accidente fatal, ¿quién es responsable: el fabricante del software, el propietario del vehículo o el algoritmo mismo? Esta pregunta, que antes era filosófica, se ha convertido en urgentemente práctica con el despliegue comercial de sistemas autónomos.</p>
+              <p style="margin-top:1rem;">En el ámbito financiero, los algoritmos de trading de alta frecuencia pueden desencadenar crisis bursátiles en milisegundos, como ocurrió con el "Flash Crash" de 2010, cuando el Dow Jones perdió casi 1,000 puntos en minutos por operaciones algorítmicas en cascada.</p>
+              <p style="margin-top:1rem;">La Unión Europea ha propuesto la Ley de IA (AI Act), que clasifica los sistemas de IA por nivel de riesgo y establece obligaciones de transparencia y responsabilidad. Sin embargo, la regulación tecnológica siempre corre el riesgo de quedar obsoleta antes de implementarse.</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=600&q=80" alt="Robot automatización industrial">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="timeline-inner">
+    <div class="section-header reveal">
+      <div class="section-label">Contexto Histórico</div>
+      <h2 class="section-title">Hitos en la Ética Tecnológica</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">1945</div>
+        <h4>Proyecto Manhattan y el dilema nuclear</h4>
+        <p>El desarrollo de la bomba atómica marca el primer gran debate moderno sobre la responsabilidad científica. Muchos físicos involucrados firmaron peticiones contra su uso; J. Robert Oppenheimer afirmó que los científicos "han conocido el pecado".</p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">1997</div>
+        <h4>Dolly: la oveja clonada</h4>
+        <p>El equipo del Instituto Roslin clona exitosamente a Dolly, la primera mamífero clonado a partir de una célula adulta, desencadenando el debate global sobre la clonación y los límites de la intervención biotecnológica.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2013</div>
+        <h4>Revelaciones de Snowden</h4>
+        <p>Edward Snowden revela la vigilancia masiva de la NSA, cambiando para siempre la percepción pública sobre el alcance del espionaje digital gubernamental y la fragilidad de la privacidad en entornos digitales.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2018</div>
+        <h4>GDPR y Cambridge Analytica</h4>
+        <p>Europa implementa el primer marco regulatorio robusto de protección de datos. Simultáneamente, el escándalo de Cambridge Analytica expone el uso político de datos de redes sociales a escala masiva.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2023</div>
+        <h4>Auge de la IA generativa</h4>
+        <p>ChatGPT y otros modelos generativos de lenguaje alcanzan cientos de millones de usuarios en semanas, planteando preguntas urgentes sobre derechos de autor, desinformación y el futuro del trabajo cognitivo humano.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2024</div>
+        <h4>Ley de IA de la Unión Europea</h4>
+        <p>La EU AI Act se convierte en el primer marco legal comprehensivo para la regulación de la inteligencia artificial, estableciendo categorías de riesgo y requisitos de transparencia para sistemas de IA desplegados en Europa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section id="galeria" class="gallery-section">
+  <div class="gallery-inner">
+    <div class="section-header reveal">
+      <div class="section-label">05 · Galería</div>
+      <h2 class="section-title">Imágenes del Impacto Tecnológico</h2>
+    </div>
+
+    <div class="gallery-masonry">
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80" alt="Laboratorio de tecnología" data-caption="Investigación tecnológica avanzada">
+        <div class="gallery-overlay"><span>Laboratorio de Investigación</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80" alt="Reunión empresarial y tecnología" data-caption="Toma de decisiones corporativas">
+        <div class="gallery-overlay"><span>Poder Corporativo Digital</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80" alt="Globo digital" data-caption="Conectividad global e interdependencia digital">
+        <div class="gallery-overlay"><span>Red Global de Datos</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=600&q=80" alt="Investigación científica genética" data-caption="Laboratorio de genética molecular">
+        <div class="gallery-overlay"><span>Investigación Genómica</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80" alt="Dron tecnología vigilancia" data-caption="Drones como herramienta de vigilancia">
+        <div class="gallery-overlay"><span>Vigilancia Aérea</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" alt="Código en computadora" data-caption="Programación y desarrollo de algoritmos">
+        <div class="gallery-overlay"><span>Algoritmos y Código</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80" alt="Energía solar sustentable" data-caption="Energías renovables como alternativa tecnológica sostenible">
+        <div class="gallery-overlay"><span>Energía Solar</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80" alt="Residuos electrónicos e-waste" data-caption="Basura electrónica: consecuencia oculta de la sociedad digital">
+        <div class="gallery-overlay"><span>Residuos Electrónicos</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&q=80" alt="Código binario datos" data-caption="La realidad como flujo continuo de datos">
+        <div class="gallery-overlay"><span>Flujo de Datos</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ INTERACTIVO -->
+<section id="quiz" class="interactive-section">
+  <div class="interactive-inner">
+    <div class="section-header reveal">
+      <div class="section-label">07 · Actividad Interactiva</div>
+      <h2 class="section-title">Quiz de Comprensión</h2>
+    </div>
+    <p class="reveal">Responde las siguientes preguntas para evaluar la comprensión de los temas estudiados en esta investigación.</p>
+
+    <div class="quiz-card reveal">
+      <div id="quiz-container"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSIÓN -->
+<section id="conclusion">
+  <div class="conclusion-inner">
+    <div class="section-header reveal">
+      <div class="section-label">06 · Conclusión</div>
+      <h2 class="section-title">Reflexiones Finales</h2>
+    </div>
+
+    <div class="conclusion-grid">
+      <div class="conclusion-text">
+        <p class="reveal">La investigación realizada permite afirmar que la tecnología no es un fenómeno autónomo e inevitable: es el producto de decisiones humanas, y como tal, puede y debe ser guiada por principios éticos sólidos que coloquen el bienestar colectivo por encima de los intereses particulares.</p>
+
+        <p class="reveal">Los tres ejes analizados —tecnología y poder, bioética y salud, y sustentabilidad— revelan que los desafíos contemporáneos no son independientes sino profundamente interconectados. La extracción de minerales para dispositivos electrónicos es simultáneamente un problema de sustentabilidad y de poder geopolítico; los algoritmos de IA que afectan la salud son tanto cuestiones bioéticas como de control corporativo.</p>
+
+        <p class="reveal">El estudiante que reflexiona sobre estas cuestiones no lo hace como espectador pasivo: es parte de una generación que heredará y transformará estas tecnologías. La pregunta no es solo qué podemos construir, sino quiénes queremos ser como sociedad a través de lo que elegimos construir.</p>
+
+        <div class="quote-block reveal" style="border-color: var(--gold); background: rgba(201,168,76,0.08);">
+          <p style="color: rgba(255,255,255,0.8);">"El verdadero progreso no es el que aumenta la capacidad de acción del ser humano, sino el que eleva la calidad de su propósito."</p>
+          <cite style="color: rgba(255,255,255,0.4);">— Reflexión sobre el pensamiento histórico de la ciencia</cite>
+        </div>
+      </div>
+
+      <div class="conclusion-points">
+        <div class="conclusion-point reveal">
+          <div class="conclusion-point-icon">⚡</div>
+          <div class="conclusion-point-text">
+            <h5>La regulación es urgente pero insuficiente</h5>
+            <p>Los marcos legales actuales no son capaces de responder a la velocidad de la innovación tecnológica. Se requieren mecanismos de gobernanza adaptativos y participativos.</p>
+          </div>
+        </div>
+        <div class="conclusion-point reveal">
+          <div class="conclusion-point-icon">🌐</div>
+          <div class="conclusion-point-text">
+            <h5>La ética debe ser interdisciplinaria</h5>
+            <p>Ninguna disciplina por sí sola puede abordar los dilemas tecnológicos. La filosofía, la ingeniería, la biología y la sociología deben dialogar de forma estructurada.</p>
+          </div>
+        </div>
+        <div class="conclusion-point reveal">
+          <div class="conclusion-point-icon">🔬</div>
+          <div class="conclusion-point-text">
+            <h5>La bioética requiere consenso global</h5>
+            <p>Las decisiones sobre edición genética y biotecnología no pueden quedar en manos de intereses nacionales o corporativos: exigen tratados y organismos internacionales efectivos.</p>
+          </div>
+        </div>
+        <div class="conclusion-point reveal">
+          <div class="conclusion-point-icon">♻️</div>
+          <div class="conclusion-point-text">
+            <h5>La sustentabilidad es condición de posibilidad</h5>
+            <p>Una civilización tecnológica que destruye su base ecológica es insostenible. La innovación verde no es opcional sino estructuralmente necesaria.</p>
+          </div>
+        </div>
+        <div class="conclusion-point reveal">
+          <div class="conclusion-point-icon">🧠</div>
+          <div class="conclusion-point-text">
+            <h5>La educación tecnológica debe incluir ética</h5>
+            <p>Los ingenieros, programadores y científicos del futuro deben formarse no solo en competencias técnicas, sino en responsabilidad social y pensamiento crítico sobre sus creaciones.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFERENCIAS -->
+<section id="referencias">
+  <div class="referencias-inner">
+    <div class="section-header reveal">
+      <div class="section-label">08 · Fuentes</div>
+      <h2 class="section-title">Referencias Bibliográficas</h2>
+    </div>
+
+    <div class="ref-list">
+      <div class="ref-item reveal">
+        <span class="ref-num">01</span>
+        <p>Castells, M. (2009). <em>Comunicación y poder.</em> Alianza Editorial. Madrid.</p>
+      </div>
+      <div class="ref-item reveal">
+        <span class="ref-num">02</span>
+        <p>Noble, S. U. (2018). <em>Algorithms of Oppression: How Search Engines Reinforce Racism.</em> New York University Press.</p>
+      </div>
+      <div class="ref-item reveal">
+        <span class="ref-num">03</span>
+        <p>Harari, Y. N. (2015). <em>Homo Deus: Breve historia del mañana.</em> Debate. Barcelona.</p>
+      </div>
+      <div class="ref-item reveal">
+        <span class="ref-num">04</span>
+        <p>Habermas, J. (2003). <em>El futuro de la naturaleza humana: ¿Hacia una eugenesia liberal?</em> Paidós. Barcelona.</p>
+      </div>
+      <div class="ref-item reveal">
+        <span class="ref-num">05</span>
+        <p>Doudna, J. & Sternberg, S. (2017). <em>A Crack in Creation: Gene Editing and the Unthinkable Power to Control Evolution.</em> Houghton Mifflin Harcourt.</p>
+      </div>
+      <div class="ref-item reveal">
+        <span class="ref-num">06</span>
+        <p>Zuboff, S. (2019). <em>The Age of Surveillance Capitalism: The Fight for a Human Future at the New Frontier of Power.</em> PublicAffairs.</p>
+      </div>
+      <div class="ref-item reveal">
+        <span class="ref-num">07</span>
+        <p>Comisión Europea. (2021). <em>Propuesta de Reglamento del Parlamento Europeo y del Consejo sobre la Inteligencia Artificial.</em> COM(2021) 206 final. Bruselas.</p>
+      </div>
+      <div class="ref-item reveal">
+        <span class="ref-num">08</span>
+        <p>Rifkin, J. (2011). <em>La Tercera Revolución Industrial: Cómo el poder lateral está transformando la energía, la economía y el mundo.</em> Paidós. Barcelona.</p>
+      </div>
+      <div class="ref-item reveal">
+        <span class="ref-num">09</span>
+        <p>Greenwald, G. (2014). <em>No Place to Hide: Edward Snowden, the NSA, and the U.S. Surveillance State.</em> Metropolitan Books.</p>
+      </div>
+      <div class="ref-item reveal">
+        <span class="ref-num">10</span>
+        <p>ONU – Programa de las Naciones Unidas para el Medio Ambiente. (2022). <em>E-waste Monitor 2022: Booming E-waste Leaves Growing Legacy.</em> UNEP. Nairobi.</p>
+      </div>
+      <div class="ref-item reveal">
+        <span class="ref-num">11</span>
+        <p>UNESCO. (2021). <em>Recomendación sobre la Ética de la Inteligencia Artificial.</em> Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura. París.</p>
+      </div>
+      <div class="ref-item reveal">
+        <span class="ref-num">12</span>
+        <p>Crawford, K. (2021). <em>Atlas of AI: Power, Politics, and the Planetary Costs of Artificial Intelligence.</em> Yale University Press.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-title">Impacto Social y Ético de la Tecnología</p>
+  <p>Brizuela Araujo Héctor Alejandro · 6CPGM · Pensamiento Histórico de la Ciencia y la Tecnología</p>
+  <p style="margin-top:0.5rem; opacity:0.5;">Docente: Urbina Hernández Carlos · 2026</p>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+// ── PARTICLES ──
+(function() {
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 12 + 4;
+    p.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      animation-duration:${Math.random()*20+15}s;
+      animation-delay:${Math.random()*15}s;
+      opacity:${Math.random()*0.4+0.1};
+    `;
+    container.appendChild(p);
+  }
+})();
+
+// ── PROGRESS BAR ──
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('progress-bar').style.width = (scrolled / total * 100) + '%';
+
+  const btn = document.getElementById('back-top');
+  btn.classList.toggle('visible', scrolled > 400);
+});
+
+// ── REVEAL ON SCROLL ──
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ── ACCORDION ──
+function toggleAccordion(id) {
+  const acc = document.getElementById(id);
+  const isOpen = acc.classList.contains('open');
+  document.querySelectorAll('.accordion.open').forEach(a => a.classList.remove('open'));
+  if (!isOpen) acc.classList.add('open');
+}
+
+// ── LIGHTBOX ──
+function openLightbox(el) {
+  const img = el.querySelector('img');
+  document.getElementById('lightbox-img').src = img.src.replace('w=600','w=1200').replace('w=800','w=1200');
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// ── COUNTER ANIMATION ──
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target;
+      const target = parseFloat(el.dataset.target);
+      const isDecimal = target % 1 !== 0;
+      let start = 0;
+      const dur = 1800;
+      const startTime = performance.now();
+      function update(now) {
+        const progress = Math.min((now - startTime) / dur, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const val = start + (target - start) * ease;
+        el.textContent = isDecimal ? val.toFixed(1) : Math.round(val);
+        if (progress < 1) requestAnimationFrame(update);
+        else el.textContent = isDecimal ? target.toFixed(1) : target;
+      }
+      requestAnimationFrame(update);
+      countObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-number[data-target]').forEach(el => countObserver.observe(el));
+
+// ── QUIZ ──
+const questions = [
+  {
+    q: "¿Qué caso paradigmático reveló el uso de datos de Facebook para influir en procesos electorales?",
+    options: ["WikiLeaks (2010)", "Cambridge Analytica (2018)", "Snowden NSA (2013)", "Panama Papers (2016)"],
+    correct: 1,
+    feedback: "Correcto. Cambridge Analytica utilizó datos de 87 millones de usuarios de Facebook para perfilar votantes en más de 20 países, incluyendo las elecciones de EE.UU. en 2016."
+  },
+  {
+    q: "¿Qué herramienta biotecnológica permite editar secuencias de ADN con alta precisión?",
+    options: ["PCR (Reacción en Cadena de Polimerasa)", "CRISPR-Cas9", "Secuenciación Sanger", "Electroforesis en gel"],
+    correct: 1,
+    feedback: "Correcto. CRISPR-Cas9 es una tecnología de edición genética que permite modificar secuencias específicas del ADN con una precisión sin precedentes históricos."
+  },
+  {
+    q: "Según la investigación, ¿qué porcentaje de la electricidad mundial consumen aproximadamente los centros de datos globales?",
+    options: ["0.1%", "5%", "1%", "10%"],
+    correct: 2,
+    feedback: "Correcto. Los centros de datos consumen aproximadamente el 1% de la electricidad mundial, cifra que aumenta con la adopción masiva de la IA generativa."
+  },
+  {
+    q: "¿Qué sistema judicial fue criticado por mostrar sesgos raciales en predicciones de reincidencia criminal?",
+    options: ["ALEXI", "COMPAS", "ARIA", "JusticeAI"],
+    correct: 1,
+    feedback: "Correcto. El sistema COMPAS, utilizado en el sistema judicial estadounidense, fue documentado por mostrar sesgos raciales sistemáticos en sus predicciones de reincidencia."
+  },
+  {
+    q: "¿Qué reglamento europeo representa el marco más robusto de protección de datos personales hasta la fecha?",
+    options: ["CCPA (California Consumer Privacy Act)", "AI Act", "GDPR (Reglamento General de Protección de Datos)", "HIPAA"],
+    correct: 2,
+    feedback: "Correcto. El GDPR (2018) es el reglamento de protección de datos más comprehensivo implementado, aunque su alcance geográfico y cumplimiento siguen siendo objeto de debate."
+  }
+];
+
+let currentQ = 0;
+let answered = false;
+
+function renderQuiz() {
+  const q = questions[currentQ];
+  const container = document.getElementById('quiz-container');
+  container.innerHTML = `
+    <div class="quiz-question">${q.q}</div>
+    <div class="quiz-options" id="options">
+      ${q.options.map((o, i) => `
+        <button class="quiz-option" onclick="selectAnswer(${i})">${o}</button>
+      `).join('')}
+    </div>
+    <div class="quiz-feedback" id="feedback"></div>
+    <div class="quiz-nav">
+      <span class="quiz-progress">Pregunta ${currentQ + 1} de ${questions.length}</span>
+      <button class="btn-next" id="btn-next" onclick="nextQuestion()">
+        ${currentQ < questions.length - 1 ? 'Siguiente →' : 'Ver resultado'}
+      </button>
+    </div>
+  `;
+  answered = false;
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[currentQ];
+  const btns = document.querySelectorAll('.quiz-option');
+  btns.forEach(b => b.disabled = true);
+  btns[idx].classList.add(idx === q.correct ? 'correct' : 'wrong');
+  if (idx !== q.correct) btns[q.correct].classList.add('correct');
+
+  const fb = document.getElementById('feedback');
+  fb.textContent = idx === q.correct ? '✓ ' + q.feedback : '✗ Incorrecto. ' + q.feedback;
+  fb.className = 'quiz-feedback show ' + (idx === q.correct ? 'correct-fb' : 'wrong-fb');
+  document.getElementById('btn-next').classList.add('show');
+}
+
+function nextQuestion() {
+  if (currentQ < questions.length - 1) {
+    currentQ++;
+    renderQuiz();
+  } else {
+    document.getElementById('quiz-container').innerHTML = `
+      <div style="text-align:center; padding: 2rem 0;">
+        <div style="font-size:3rem; margin-bottom:1rem;">🎓</div>
+        <h3 style="font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--mid); margin-bottom:1rem;">
+          ¡Quiz completado!
+        </h3>
+        <p style="color:var(--text-muted); margin-bottom:1.5rem;">
+          Has repasado los cinco conceptos clave de la investigación sobre Impacto Social y Ético de la Tecnología.
+        </p>
+        <button onclick="currentQ=0; renderQuiz();" style="
+          background:var(--highlight); color:white; border:none;
+          padding:0.8rem 1.8rem; border-radius:8px; cursor:pointer;
+          font-family:'Source Serif 4',serif; font-size:0.95rem;
+          transition: background 0.25s;">
+          Repetir Quiz
+        </button>
+      </div>
+    `;
+  }
+}
+
+renderQuiz();
+</script>
+</body>
+</html>
